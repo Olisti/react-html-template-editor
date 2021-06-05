@@ -1,15 +1,17 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import TemplateEditor from './templates/editor/TemplateEditor';
-import TemplateList from './templates/list/TemplateList';
+import PageNotFound from './pages/404/PageNotFound';
+import TemplateEditor from './pages/template-editor/TemplateEditor';
+import TemplateList from './pages/template-list/TemplateList';
 
 export default function Router() {
   return (
     <Switch>
-      <Redirect exact from="/" to="/templates/list" />
-      <Redirect exact from="/templates" to="/templates/list" />
-      <Route path="/templates/list" exact component={TemplateList} />
-      <Route path="/templates/editor" exact component={TemplateEditor} />
+      <Redirect exact from="/" to="/template/list" />
+      <Redirect exact from="/template" to="/template/list" />
+      <Route path="/template/list" exact component={TemplateList} />
+      <Route path="/template/editor" exact component={TemplateEditor} />
+      <Route component={PageNotFound} />
     </Switch>
   );
 }
