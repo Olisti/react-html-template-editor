@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import logo from '@assets/logo.svg';
-import { Box, Flex, Heading, Image } from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
+import { Box, Flex, Heading, Image, Link } from '@chakra-ui/react';
+import { Link as ReachLink } from 'react-router-dom';
 
 interface IAppHeaderProps {
   children?: ReactNode;
@@ -19,13 +19,13 @@ export default function AppHeader({ children }: IAppHeaderProps) {
         borderBottom="1px"
         borderColor="gray.200"
       >
-        <Link to="/">
-          <Image src={logo} alt="logo" width="4em" height="4em" />
-        </Link>
-        <Link to="/">
-          <Heading size="md" color="gray.700">
-            HTML editor
-          </Heading>
+        <Link as={ReachLink} to="/">
+          <Flex alignItems="center" paddingRight="1em">
+            <Image src={logo} alt="logo" width="4em" height="4em" />
+            <Heading size="md" color="gray.700">
+              HTML editor
+            </Heading>
+          </Flex>
         </Link>
         <Box flex="1" />
         <Box>{children}</Box>

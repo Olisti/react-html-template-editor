@@ -3,7 +3,7 @@ import './PageNotFound.scss';
 import logo from '@assets/logo.svg';
 import AppHeader from '@/app/components/AppHeader';
 import { Button, Flex, Text, Image } from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
+import { Link as ReachLink } from 'react-router-dom';
 
 export default function PageNotFound() {
   return (
@@ -32,9 +32,9 @@ export default function PageNotFound() {
             404
           </Text>
         </Flex>
-        <Link to="/">
-          <Button minWidth="10em">Home page</Button>
-        </Link>
+        <Button as={ReachLink} to="/" minWidth="10em">
+          Home page
+        </Button>
       </Flex>
     </>
   );

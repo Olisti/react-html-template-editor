@@ -2,7 +2,7 @@ import React from 'react';
 import AppHeader from '@/app/components/AppHeader';
 import { Box, Button, Input, InputGroup, InputLeftElement } from '@chakra-ui/react';
 import { AddIcon, SearchIcon } from '@chakra-ui/icons';
-import { Link } from 'react-router-dom';
+import { Link as ReachLink } from 'react-router-dom';
 import Table from '@/app/components/Table';
 
 export default function TemplateList() {
@@ -16,11 +16,9 @@ export default function TemplateList() {
             <Input placeholder="Search" type="text" bgColor="white" />
           </InputGroup>
 
-          <Link to="/template/editor">
-            <Button leftIcon={<AddIcon />} colorScheme="blue">
-              Create new
-            </Button>
-          </Link>
+          <Button as={ReachLink} to="/template/editor" leftIcon={<AddIcon />} colorScheme="blue">
+            Create new
+          </Button>
         </Box>
 
         <Table />
