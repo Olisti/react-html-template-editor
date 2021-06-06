@@ -7,9 +7,7 @@ function App() {
   return (
     <ChakraProvider>
       <BrowserRouter>
-        {/* <div className="app"> */}
         <Router />
-        {/* </div> */}
       </BrowserRouter>
     </ChakraProvider>
   );

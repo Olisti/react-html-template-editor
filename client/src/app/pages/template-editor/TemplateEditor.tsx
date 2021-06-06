@@ -1,12 +1,30 @@
 import AppHeader from '@/app/components/AppHeader';
-import { Box } from '@chakra-ui/react';
+import { Button, Grid, GridItem, Input, Stack } from '@chakra-ui/react';
 import React from 'react';
 
 export default function TemplateEditor() {
   return (
     <>
-      <AppHeader>Save</AppHeader>
-      <Box flex="1">TemplateEditor</Box>
+      <AppHeader>
+        <Stack spacing={4} direction="row" align="center">
+          <Input placeholder="Name" size="sm" />
+          <Button colorScheme="gray" size="sm" minWidth="5em">
+            Back
+          </Button>
+          <Button colorScheme="blue" size="sm" minWidth="5em">
+            Save
+          </Button>
+        </Stack>
+      </AppHeader>
+      <Grid flex="1" templateColumns="10em auto 10em">
+        <GridItem bg="gray.50" borderRight="1px" borderColor="gray.200">
+          Blocks
+        </GridItem>
+        <GridItem>Content</GridItem>
+        <GridItem bg="gray.50" borderLeft="1px" borderColor="gray.200">
+          Settings
+        </GridItem>
+      </Grid>
     </>
   );
 }

@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@chakra-ui/gatsby-plugin": "^2.0.1",
+    "@chakra-ui/icons": "^1.0.13",
     "@chakra-ui/react": "^1.6.3",
     "@craco/craco": "^6.1.2",
     "@emotion/react": "^11.4.0",
