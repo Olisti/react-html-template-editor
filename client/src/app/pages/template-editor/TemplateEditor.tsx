@@ -1,36 +1,40 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { Box, Flex, Grid, GridItem } from '@chakra-ui/react';
+import { Template } from '@/types/template';
 import AppHeader from '@/app/components/AppHeader';
-import { Button, Grid, GridItem, Input, Stack } from '@chakra-ui/react';
-import { Link as ReachLink } from 'react-router-dom';
-import { TEMPLATE_LIST_ROUTE } from '@/app/Router';
+import TemplateEditorBlocks from './TemplateEditorBlocks';
+import TemplateEditorSettings from './TemplateEditorSettings';
+import TemplateEditorPreview from './TemplateEditorPreview';
+import TemplateEditorCode from './TemplateEditorCode';
+import TemplateEditorTools from './TemplateEditorTools';
+import defaultTemplate from './defaultTemplate';
 
 export default function TemplateEditor() {
+  const [template, setTemplate] = useState<Template | null>(null);
+
+  useEffect(() => {
+    setTemplate(defaultTemplate);
+  }, []);
+
   return (
     <>
       <AppHeader>
-        <Stack spacing={4} direction="row" align="center">
-          <Input placeholder="Name" size="sm" />
-          <Button
-            as={ReachLink}
-            to={TEMPLATE_LIST_ROUTE}
-            colorScheme="gray"
-            size="sm"
-            minWidth="5em"
-          >
-            Back
-          </Button>
-          <Button colorScheme="blue" size="sm" minWidth="5em">
-            Save
-          </Button>
-        </Stack>
+        <TemplateEditorTools />
       </AppHeader>
       <Grid flex="1" templateColumns="10em auto 10em">
         <GridItem bg="gray.50" borderRight="1px" borderColor="gray.200">
-          Blocks
+          <TemplateEditorBlocks />
         </GridItem>
-        <GridItem>Content</GridItem>
+        <GridItem>
+          <Flex flexDirection="column" height="100%">
+            <Box flex="1">
+              <TemplateEditorPreview />
+            </Box>
+            <TemplateEditorCode />
+          </Flex>
+        </GridItem>
         <GridItem bg="gray.50" borderLeft="1px" borderColor="gray.200">
-          Settings
+          <TemplateEditorSettings />
         </GridItem>
       </Grid>
     </>
