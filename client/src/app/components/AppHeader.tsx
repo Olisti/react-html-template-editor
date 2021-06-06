@@ -21,7 +21,7 @@ export default function AppHeader({ children }: IAppHeaderProps) {
       >
         <Link as={ReachLink} to="/">
           <Flex alignItems="center" paddingRight="1em">
-            <Image src={logo} alt="logo" width="4em" height="4em" />
+            <Image src={logo} alt="logo" width="3.5em" height="3.5em" />
             <Heading size="md" color="gray.700">
               HTML editor
             </Heading>

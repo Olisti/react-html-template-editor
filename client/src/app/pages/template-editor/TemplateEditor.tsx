@@ -1,6 +1,8 @@
+import React from 'react';
 import AppHeader from '@/app/components/AppHeader';
 import { Button, Grid, GridItem, Input, Stack } from '@chakra-ui/react';
-import React from 'react';
+import { Link as ReachLink } from 'react-router-dom';
+import { TEMPLATE_LIST_ROUTE } from '@/app/Router';
 
 export default function TemplateEditor() {
   return (
@@ -8,7 +10,13 @@ export default function TemplateEditor() {
       <AppHeader>
         <Stack spacing={4} direction="row" align="center">
           <Input placeholder="Name" size="sm" />
-          <Button colorScheme="gray" size="sm" minWidth="5em">
+          <Button
+            as={ReachLink}
+            to={TEMPLATE_LIST_ROUTE}
+            colorScheme="gray"
+            size="sm"
+            minWidth="5em"
+          >
             Back
           </Button>
           <Button colorScheme="blue" size="sm" minWidth="5em">

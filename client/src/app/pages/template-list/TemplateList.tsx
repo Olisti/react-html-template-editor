@@ -4,6 +4,7 @@ import { Box, Button, Input, InputGroup, InputLeftElement } from '@chakra-ui/rea
 import { AddIcon, SearchIcon } from '@chakra-ui/icons';
 import { Link as ReachLink } from 'react-router-dom';
 import Table from '@/app/components/Table';
+import { TEMPLATE_CREATE_ROUTE } from '@/app/Router';
 
 export default function TemplateList() {
   return (
@@ -16,7 +17,12 @@ export default function TemplateList() {
             <Input placeholder="Search" type="text" bgColor="white" />
           </InputGroup>
 
-          <Button as={ReachLink} to="/template/editor" leftIcon={<AddIcon />} colorScheme="blue">
+          <Button
+            as={ReachLink}
+            to={TEMPLATE_CREATE_ROUTE}
+            leftIcon={<AddIcon />}
+            colorScheme="blue"
+          >
             Create new
           </Button>
         </Box>
