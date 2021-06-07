@@ -1,18 +1,10 @@
-import { IEditorNodes } from '@/types/editorContext';
-import React, {
-  JSXElementConstructor,
-  memo,
-  ReactElement,
-  ReactNode,
-  useEffect,
-  useState,
-} from 'react';
+import { IEditorNodeEl, IEditorNodes } from '@/types/editorContext';
+import React, { memo, ReactNode, useEffect, useState } from 'react';
 import { useEditor } from './context/EditorContext';
 
 const TemplateEditorPreviewMemo = memo(
   ({ nodes, rootNodeId }: { nodes: IEditorNodes; rootNodeId: string | null }) => {
-    const [domTree, setDomTree] =
-      useState<ReactElement<any, string | JSXElementConstructor<any>> | undefined>();
+    const [domTree, setDomTree] = useState<IEditorNodeEl | null>();
     useEffect(() => {
       const newDomTree = getTree(nodes, rootNodeId);
       setDomTree(newDomTree);
@@ -29,7 +21,7 @@ export default function TemplateEditorPreview() {
 
 const getTree = (nodes: IEditorNodes, rootNodeId: string | null) => {
   const rootNode = rootNodeId ? nodes[rootNodeId] : null;
-  if (!rootNode) return;
+  if (!rootNode) return null;
   const getChildren = (childIds: string[]): ReactNode => {
     if (!childIds || childIds.length < 1) return [];
     return childIds.map((childId, index: number) => {

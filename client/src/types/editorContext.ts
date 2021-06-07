@@ -19,8 +19,10 @@ export interface IEditorNode {
   isBlock: boolean;
   props: any;
   children: string[];
-  el: ReactElement<any, string | JSXElementConstructor<any>>;
+  el: IEditorNodeEl;
 }
+
+export type IEditorNodeEl = ReactElement<any, string | JSXElementConstructor<any>>;
 
 export interface IEditorNodes {
   [key: string]: IEditorNode;

@@ -7,6 +7,7 @@ import AppHeader from '@/app/components/AppHeader';
 import TemplateEditorBlocks from './TemplateEditorBlocks';
 import TemplateEditorSettings from './TemplateEditorSettings';
 import TemplateEditorPreview from './TemplateEditorPreview';
+import TemplateEditorFrame from './TemplateEditorFrame';
 import TemplateEditorCode from './TemplateEditorCode';
 import TemplateEditorTools from './TemplateEditorTools';
 import defaultTemplate from './defaultTemplate';
@@ -36,7 +37,9 @@ export default function TemplateEditor() {
         <GridItem>
           <Flex flexDirection="column" height="100%">
             <Box flex="1">
-              <TemplateEditorPreview />
+              <TemplateEditorFrame>
+                <TemplateEditorPreview />
+              </TemplateEditorFrame>
             </Box>
             <TemplateEditorCode />
           </Flex>
