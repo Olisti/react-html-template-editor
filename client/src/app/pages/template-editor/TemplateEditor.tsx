@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Flex, Grid, GridItem } from '@chakra-ui/react';
-import { Template } from '@/types/template';
-import { EditorProvider, IEditorState } from './context/EditorProvider';
+import { ITemplate } from '@/types/template';
+import { EditorProvider } from './context/EditorProvider';
+import { IEditorData } from '@/types/editorContext';
 import AppHeader from '@/app/components/AppHeader';
 import TemplateEditorBlocks from './TemplateEditorBlocks';
 import TemplateEditorSettings from './TemplateEditorSettings';
@@ -11,14 +12,14 @@ import TemplateEditorTools from './TemplateEditorTools';
 import defaultTemplate from './defaultTemplate';
 
 export default function TemplateEditor() {
-  const [template, setTemplate] = useState<Template | null>(null);
+  const [template, setTemplate] = useState<ITemplate | null>(null);
 
   useEffect(() => {
     // TODO: get id
     setTemplate(defaultTemplate);
   }, []);
 
-  const saveHandler = (data: IEditorState) => {
+  const saveHandler = (data: IEditorData) => {
     // TODO: save
     console.log('save', data);
   };

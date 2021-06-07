@@ -1,8 +1,7 @@
+import { IEditorState } from '@/types/editorContext';
 import { createContext, useContext } from 'react';
 
-export interface IEditorContext {
-  name: string;
-  html: string;
+export interface IEditorContext extends IEditorState {
   setName: (name: string) => void;
   setHtml: (html: string) => void;
   onSave: () => void;

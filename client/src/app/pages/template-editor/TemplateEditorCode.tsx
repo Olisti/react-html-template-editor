@@ -6,7 +6,7 @@ const TemplateEditorCodeMemo = memo(
   ({ html, setHtml }: { html: string; setHtml: (v: string) => void }) => {
     const changeHtml = (e: SyntheticEvent<HTMLTextAreaElement>) => setHtml(e.currentTarget?.value);
 
-    return <Textarea value={html} onChange={changeHtml} />;
+    return <Textarea value={html} onChange={changeHtml} style={{ height: '200px' }} />;
   }
 );
 

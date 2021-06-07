@@ -1,34 +1,37 @@
-import { Template } from '@/types/template';
+import { IEditorAction, IEditorData, IEditorState } from '@/types/editorContext';
+import { ITemplate } from '@/types/template';
 import { Reducer, useEffect, useReducer } from 'react';
+import { HtmlToNodesParser } from '../services/htmlToNodesParser';
 import { EditorContext, IEditorContext } from './EditorContext';
-import { IEditorAction, reducer } from './reducer';
+import { reducer } from './reducer';
 
 interface IEditorProviderProps {
-  template: Template | null;
-  saveHandler: (data: IEditorState) => void;
+  template: ITemplate | null;
+  saveHandler: (data: IEditorData) => void;
   children: React.ReactNode;
 }
 
-export interface IEditorState {
-  name: string;
-  html: string;
-}
+const initialState: IEditorState = { name: '', html: '', nodes: {}, rootNodeId: null };
 
-const initialState: IEditorState = { name: '', html: '' };
+const htmlParser = new HtmlToNodesParser();
 
 export const EditorProvider = ({ template, saveHandler, children }: IEditorProviderProps) => {
   const [state, dispatch] = useReducer<Reducer<IEditorState, IEditorAction>>(reducer, initialState);
+
+  useEffect(() => {
+    dispatch({ type: 'SET_NAME', payload: template?.name || '' });
+    dispatch({ type: 'SET_HTML', payload: template?.html || '' });
+    const { nodes, rootNodeId } = htmlParser.parse(template?.html || '');
+    dispatch({ type: 'SET_NODES', payload: nodes });
+    dispatch({ type: 'SET_ROOT_NODE_ID', payload: rootNodeId });
+    // console.log({ nodes, rootNodeId });
+  }, [template]);
 
   const setHtml = (html: string) => {
     dispatch({ type: 'SET_HTML', payload: html });
   };
 
-  useEffect(() => {
-    dispatch({ type: 'SET_NAME', payload: template?.name || '' });
-    dispatch({ type: 'SET_HTML', payload: template?.html || '' });
-  }, [template]);
-
-  const onSave = () => saveHandler(state);
+  const onSave = () => saveHandler({ html: state.html, name: state.name });
 
   const value: IEditorContext = {
     ...state,

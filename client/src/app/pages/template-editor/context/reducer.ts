@@ -1,9 +1,4 @@
-import { IEditorState } from './EditorProvider';
-
-export interface IEditorAction {
-  type: 'SET_NAME' | 'SET_HTML';
-  payload: any;
-}
+import { IEditorAction, IEditorState } from '@/types/editorContext';
 
 export function reducer(state: IEditorState, action: IEditorAction) {
   switch (action.type) {
@@ -11,6 +6,10 @@ export function reducer(state: IEditorState, action: IEditorAction) {
       return { ...state, name: action.payload };
     case 'SET_HTML':
       return { ...state, html: action.payload };
+    case 'SET_NODES':
+      return { ...state, nodes: action.payload };
+    case 'SET_ROOT_NODE_ID':
+      return { ...state, rootNodeId: action.payload };
     default:
       throw new Error();
   }
