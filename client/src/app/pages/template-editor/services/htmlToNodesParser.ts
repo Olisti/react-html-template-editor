@@ -6,7 +6,9 @@ import {
   IPreprocessingInstruction,
   IProcessingInstruction,
 } from '@/types/htmlToReact';
-import { IEditorNodes } from '@/types/editorContext';
+import { IBlockProps, IEditorNodes } from './../context/types';
+import ButtonBlock from '../blocks/button/ButtonBlock';
+import { getStyleObjectFromString } from './helpers';
 
 const htmlToReactParser = new Parser();
 
@@ -31,6 +33,28 @@ export class HtmlToNodesParser {
       shouldProcessNode: (node) => node.type === 'text' && node.data.trim() === '',
       processNode: () => null,
     },
+    // button
+    {
+      shouldProcessNode: (node) => node.attribs?.['data-block'] === 'button',
+      processNode: (node, children, index) => {
+        const styleObject = getStyleObjectFromString(node.attribs?.style);
+        let props: IBlockProps<any> = {
+          id: node.id!,
+          tag: node.name,
+          attribs: { ...node.attribs, styleObject },
+          settings: { padding: styleObject?.padding || null, margin: styleObject?.margin || null },
+        };
+        const el = React.createElement(ButtonBlock, props, children);
+        this.nodes[node.id!] = {
+          isBlock: true,
+          blockName: 'ButtonBlock',
+          props,
+          children: (node.children || []).filter((child) => !!child.id).map((child) => child.id!),
+          el,
+        };
+        return el;
+      },
+    },
     // other nodes
     {
       shouldProcessNode: () => true,
@@ -38,7 +62,7 @@ export class HtmlToNodesParser {
         const processed = this.processNodeDefinitions.processDefaultNode(node, [], index);
         this.nodes[node.id!] = {
           isBlock: false,
-          props: {},
+          props: {} as IBlockProps<any>,
           children: (node.children || []).filter((child) => !!child.id).map((child) => child.id!),
           el: processed,
         };

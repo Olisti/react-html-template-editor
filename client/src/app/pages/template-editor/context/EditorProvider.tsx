@@ -1,4 +1,4 @@
-import { IEditorAction, IEditorData, IEditorState } from '@/types/editorContext';
+import { IEditorAction, IEditorData, IEditorState, IUpdateSettingsProps } from './types';
 import { ITemplate } from '@/types/template';
 import { Reducer, useEffect, useReducer } from 'react';
 import { HtmlToNodesParser } from '../services/htmlToNodesParser';
@@ -7,15 +7,28 @@ import { reducer } from './reducer';
 
 interface IEditorProviderProps {
   template: ITemplate | null;
+  isPreview: boolean;
   saveHandler: (data: IEditorData) => void;
   children: React.ReactNode;
 }
 
-const initialState: IEditorState = { name: '', html: '', nodes: {}, rootNodeId: null };
+const initialState: IEditorState = {
+  name: '',
+  html: '',
+  nodes: {},
+  rootNodeId: null,
+  isPreview: false,
+  selectedBlockId: null,
+};
 
 const htmlParser = new HtmlToNodesParser();
 
-export const EditorProvider = ({ template, saveHandler, children }: IEditorProviderProps) => {
+export const EditorProvider = ({
+  template,
+  isPreview,
+  saveHandler,
+  children,
+}: IEditorProviderProps) => {
   const [state, dispatch] = useReducer<Reducer<IEditorState, IEditorAction>>(reducer, initialState);
 
   useEffect(() => {
@@ -24,8 +37,11 @@ export const EditorProvider = ({ template, saveHandler, children }: IEditorProvi
     const { nodes, rootNodeId } = htmlParser.parse(template?.html || '');
     dispatch({ type: 'SET_NODES', payload: nodes });
     dispatch({ type: 'SET_ROOT_NODE_ID', payload: rootNodeId });
-    // console.log({ nodes, rootNodeId });
   }, [template]);
+
+  useEffect(() => {
+    dispatch({ type: 'SET_IS_PREVIEW', payload: isPreview });
+  }, [isPreview]);
 
   const setHtml = (html: string) => {
     dispatch({ type: 'SET_HTML', payload: html });
@@ -33,11 +49,21 @@ export const EditorProvider = ({ template, saveHandler, children }: IEditorProvi
 
   const onSave = () => saveHandler({ html: state.html, name: state.name });
 
+  const showSettings = (id: string | null) => {
+    dispatch({ type: 'SET_SELECTED_BLOCK_ID', payload: id });
+  };
+
+  const updateSettings = (props: IUpdateSettingsProps) => {
+    dispatch({ type: 'UPDATE_BLOCK_SETTINGS', payload: props });
+  };
+
   const value: IEditorContext = {
     ...state,
     setName: (name: string) => dispatch({ type: 'SET_NAME', payload: name }),
     setHtml,
     onSave,
+    showSettings,
+    updateSettings,
   };
 
   return <EditorContext.Provider value={value}>{children}</EditorContext.Provider>;

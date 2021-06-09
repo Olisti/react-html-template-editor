@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Box, Flex, Grid, GridItem } from '@chakra-ui/react';
 import { ITemplate } from '@/types/template';
 import { EditorProvider } from './context/EditorProvider';
-import { IEditorData } from '@/types/editorContext';
+import { IEditorData } from './context/types';
 import AppHeader from '@/app/components/AppHeader';
 import TemplateEditorBlocks from './TemplateEditorBlocks';
 import TemplateEditorSettings from './TemplateEditorSettings';
@@ -26,7 +26,7 @@ export default function TemplateEditor() {
   };
 
   return (
-    <EditorProvider template={template} saveHandler={saveHandler}>
+    <EditorProvider template={template} isPreview={true} saveHandler={saveHandler}>
       <AppHeader>
         <TemplateEditorTools />
       </AppHeader>

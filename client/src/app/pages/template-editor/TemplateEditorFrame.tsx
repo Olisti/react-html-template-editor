@@ -19,8 +19,8 @@ const TemplateEditorFrameHead = () => (
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <base target="_parent" />
     <style>{`body { margin: 0 }
-.cnv-block:hover { outline: 2px solid #93C2F0 }
-.cnv-block-selected { outline: 2px solid #0079F0 }`}</style>
+.editor-block:hover { outline: 2px solid #93C2F0 }
+.editor-block__selected { outline: 2px solid #0079F0 }`}</style>
   </>
 );
 

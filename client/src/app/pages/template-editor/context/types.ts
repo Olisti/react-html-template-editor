@@ -8,22 +8,46 @@ export interface IEditorData {
 export interface IEditorState extends IEditorData {
   nodes: IEditorNodes;
   rootNodeId: string | null;
+  isPreview: boolean;
+  selectedBlockId: string | null;
 }
 
 export interface IEditorAction {
-  type: 'SET_NAME' | 'SET_HTML' | 'SET_NODES' | 'SET_ROOT_NODE_ID';
+  type:
+    | 'SET_NAME'
+    | 'SET_HTML'
+    | 'SET_NODES'
+    | 'SET_ROOT_NODE_ID'
+    | 'SET_IS_PREVIEW'
+    | 'SET_SELECTED_BLOCK_ID'
+    | 'UPDATE_BLOCK_SETTINGS';
   payload: any;
 }
 
 export interface IEditorNode {
   isBlock: boolean;
-  props: any;
+  blockName?: string;
+  props: IBlockProps<any>;
   children: string[];
   el: IEditorNodeEl;
+}
+
+export interface IBlockProps<S> {
+  id: string;
+  tag: string;
+  attribs: { styleObject: any; [key: string]: string };
+  settings: S;
+  children?: React.ReactNode;
 }
 
 export type IEditorNodeEl = ReactElement<any, string | JSXElementConstructor<any>>;
 
 export interface IEditorNodes {
   [key: string]: IEditorNode;
+}
+
+export interface IUpdateSettingsProps {
+  id: string;
+  key: string;
+  value: any;
 }

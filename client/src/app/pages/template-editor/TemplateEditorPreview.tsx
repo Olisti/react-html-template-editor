@@ -1,6 +1,6 @@
-import { IEditorNodeEl, IEditorNodes } from '@/types/editorContext';
 import React, { memo, ReactNode, useEffect, useState } from 'react';
 import { useEditor } from './context/EditorContext';
+import { IEditorNodeEl, IEditorNodes } from './context/types';
 
 const TemplateEditorPreviewMemo = memo(
   ({ nodes, rootNodeId }: { nodes: IEditorNodes; rootNodeId: string | null }) => {
