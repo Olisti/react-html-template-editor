@@ -30,7 +30,7 @@ export default function TemplateEditor() {
       <AppHeader>
         <TemplateEditorTools />
       </AppHeader>
-      <Grid flex="1" templateColumns="10em auto 10em">
+      <Grid flex="1" templateColumns="8em auto 15em">
         <GridItem bg="gray.50" borderRight="1px" borderColor="gray.200">
           <TemplateEditorBlocks />
         </GridItem>

@@ -1,5 +1,7 @@
+import { FormControl, FormLabel, Input, Stack } from '@chakra-ui/react';
 import React from 'react';
-import { IBlockProps, IEditorNode, IUpdateSettingsProps } from '../../context/types';
+import { IBlockSettingsProps } from '..';
+import { IBlockProps } from '../../context/types';
 import BlockItem from '../BlockItem';
 
 interface IButtonSettings {
@@ -21,25 +23,37 @@ export default function ButtonBlock(props: IBlockProps<IButtonSettings>) {
 ButtonBlock.settings = ButtonBlockSettings;
 
 function ButtonBlockSettings({
-  selectedBlock,
+  blockSettings,
   updateSettings,
-}: {
-  selectedBlock: IEditorNode;
-  updateSettings: (props: IUpdateSettingsProps) => void;
-}) {
+}: IBlockSettingsProps<IButtonSettings>) {
   return (
-    <div>
-      <input
-        type="text"
-        value={selectedBlock.props.settings.padding || ''}
-        onChange={(e) =>
-          updateSettings({
-            id: selectedBlock.props.id,
-            key: 'padding',
-            value: e.currentTarget.value,
-          })
-        }
-      />
-    </div>
+    <Stack spacing={3}>
+      <FormControl>
+        <FormLabel>Padding</FormLabel>
+        <Input
+          size="sm"
+          value={blockSettings.padding || ''}
+          onChange={(e) =>
+            updateSettings({
+              key: 'padding',
+              value: e.currentTarget.value,
+            })
+          }
+        />
+      </FormControl>
+      <FormControl>
+        <FormLabel>Margin</FormLabel>
+        <Input
+          size="sm"
+          value={blockSettings.margin || ''}
+          onChange={(e) =>
+            updateSettings({
+              key: 'margin',
+              value: e.currentTarget.value,
+            })
+          }
+        />
+      </FormControl>
+    </Stack>
   );
 }

@@ -21,7 +21,11 @@ const BlockItemMemo = memo(
     const Tag = blockProps.tag || ('div' as any); // FIXME: any
     const { styleObject, class: className, ...otherAttribs } = blockProps.attribs;
 
-    console.log('BlockItemMemo');
+    const onSelectBlock = (e: Event) => {
+      e.stopPropagation();
+      showSettings(blockProps.id);
+    };
+
     return (
       <Tag
         {...otherAttribs}
@@ -30,10 +34,7 @@ const BlockItemMemo = memo(
           ...styleObject,
           ...styleSettings,
         }}
-        onClick={(e: any) => {
-          e.stopPropagation();
-          showSettings(blockProps.id);
-        }}
+        onMouseDown={onSelectBlock}
       >
         {isPreview && 'Preview!'}
         {children}
