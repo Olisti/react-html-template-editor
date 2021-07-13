@@ -5,7 +5,7 @@ export const getStyleObjectFromString = (str: string) => {
     const [property, value] = el.split(':');
     if (!property) return;
     const formattedProperty = formatStringToCamelCase(property.trim());
-    style[formattedProperty] = value.trim();
+    style[formattedProperty] = value?.trim() || '';
   });
   return style;
 };
