@@ -1,15 +1,22 @@
-import { IEditorAction, IEditorData, IEditorState, IUpdateSettingsProps } from './types';
+import {
+  IEditorAction,
+  IEditorData,
+  IEditorNodeEl,
+  IEditorState,
+  IUpdateSettingsProps,
+} from './types';
 import { ITemplate } from '@/types/template';
-import { Reducer, useCallback, useEffect, useReducer } from 'react';
+import { Reducer, useCallback, useEffect, useReducer, useRef } from 'react';
 import { HtmlToNodesParser } from '../services/htmlToNodesParser';
 import { EditorContext, IEditorContext } from './EditorContext';
 import { reducer } from './reducer';
 import debounce from 'lodash.debounce';
+import { renderNodesToHtml } from '../services/nodesToHtmlRender';
 
 interface IEditorProviderProps {
-  template: ITemplate | null;
+  template?: ITemplate | null;
   isPreview: boolean;
-  saveHandler: (data: IEditorData) => void;
+  saveHandler?: (data: IEditorData) => void;
   children: React.ReactNode;
 }
 
@@ -31,6 +38,7 @@ export const EditorProvider = ({
   children,
 }: IEditorProviderProps) => {
   const [state, dispatch] = useReducer<Reducer<IEditorState, IEditorAction>>(reducer, initialState);
+  const isCodeChangedRef = useRef(false);
 
   useEffect(() => {
     dispatch({ type: 'SET_NAME', payload: template?.name || '' });
@@ -45,6 +53,7 @@ export const EditorProvider = ({
   }, [isPreview]);
 
   const setHtml = (html: string) => {
+    isCodeChangedRef.current = true;
     dispatch({ type: 'SET_HTML', payload: html });
     debouncedRenderNodes(html);
   };
@@ -59,13 +68,24 @@ export const EditorProvider = ({
     []
   );
 
-  const onSave = () => saveHandler({ html: state.html, name: state.name });
+  const renderHtml = (domTree: IEditorNodeEl | null) => {
+    if (isCodeChangedRef.current) return;
+    renderNodesToHtml({
+      domTree,
+      setHtml: (html: string) => {
+        dispatch({ type: 'SET_HTML', payload: html });
+      },
+    });
+  };
+
+  const onSave = () => saveHandler && saveHandler({ html: state.html, name: state.name });
 
   const showSettings = (id: string | null) => {
     dispatch({ type: 'SET_SELECTED_BLOCK_ID', payload: id });
   };
 
   const updateSettings = (props: IUpdateSettingsProps) => {
+    isCodeChangedRef.current = false;
     dispatch({ type: 'UPDATE_BLOCK_SETTINGS', payload: props });
   };
 
@@ -73,6 +93,7 @@ export const EditorProvider = ({
     ...state,
     setName: (name: string) => dispatch({ type: 'SET_NAME', payload: name }),
     setHtml,
+    renderHtml,
     onSave,
     showSettings,
     updateSettings,

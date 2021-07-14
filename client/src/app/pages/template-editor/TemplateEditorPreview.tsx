@@ -1,23 +1,44 @@
-import React, { memo, ReactNode, useEffect, useState } from 'react';
+import debounce from 'lodash.debounce';
+import React, { memo, ReactNode, useCallback, useEffect, useState } from 'react';
 import { useEditor } from './context/EditorContext';
 import { IEditorNodeEl, IEditorNodes } from './context/types';
 
+export default function TemplateEditorPreview() {
+  const { nodes, rootNodeId, renderHtml } = useEditor();
+  return (
+    <TemplateEditorPreviewMemo nodes={nodes} rootNodeId={rootNodeId} renderHtml={renderHtml} />
+  );
+}
+
 const TemplateEditorPreviewMemo = memo(
-  ({ nodes, rootNodeId }: { nodes: IEditorNodes; rootNodeId: string | null }) => {
+  ({
+    nodes,
+    rootNodeId,
+    renderHtml,
+  }: {
+    nodes: IEditorNodes;
+    rootNodeId: string | null;
+    renderHtml: any;
+  }) => {
     const [domTree, setDomTree] = useState<IEditorNodeEl | null>();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const debouncedRenderHtml = useCallback(
+      debounce((domTree: IEditorNodeEl | null) => {
+        renderHtml(domTree);
+      }, 500),
+      []
+    );
+
     useEffect(() => {
       const newDomTree = getTree(nodes, rootNodeId);
+      debouncedRenderHtml(newDomTree);
       setDomTree(newDomTree);
-    }, [nodes, rootNodeId]);
+    }, [nodes, rootNodeId, debouncedRenderHtml]);
 
     return <>{domTree}</>;
   }
 );
-
-export default function TemplateEditorPreview() {
-  const { nodes, rootNodeId } = useEditor();
-  return <TemplateEditorPreviewMemo nodes={nodes} rootNodeId={rootNodeId} />;
-}
 
 const getTree = (nodes: IEditorNodes, rootNodeId: string | null) => {
   const rootNode = rootNodeId ? nodes[rootNodeId] : null;

@@ -26,10 +26,16 @@ const BlockItemMemo = memo(
       showSettings(blockProps.id);
     };
 
+    const classValue = classNames(
+      className,
+      isPreview && 'editor-block',
+      isPreview && isSelected && 'editor-block__selected'
+    );
+
     return (
       <Tag
         {...otherAttribs}
-        className={classNames(className, 'editor-block', isSelected && 'editor-block__selected')}
+        {...(classValue && { className: classValue })}
         style={{
           ...styleObject,
           ...styleSettings,
