@@ -1,29 +1,52 @@
-import React, { memo } from 'react';
+import React, { memo, useRef } from 'react';
 import classNames from 'classnames';
 import { useEditor } from '../context/EditorContext';
-import { IBlockProps } from '../context/types';
+import { IBlockProps, ISelectBlockProps } from '../context/types';
+
+interface IBlockItemProps<T> {
+  blockName: string;
+  blockProps: IBlockProps<T>;
+  styleSettings?: React.CSSProperties;
+  children: React.ReactNode;
+}
+
+export default function BlockItem<T>(props: IBlockItemProps<T>) {
+  const { isPreview, selectedBlock, selectBlock } = useEditor();
+  return (
+    <BlockItemMemo
+      {...props}
+      isPreview={isPreview}
+      isSelected={selectedBlock?.id === props.blockProps.id}
+      selectBlock={selectBlock}
+    />
+  );
+}
 
 interface IBlockItemMemoProps extends IBlockItemProps<any> {
   isPreview: boolean;
   isSelected: boolean;
-  showSettings: (id: string | null) => void;
+  selectBlock: (data: ISelectBlockProps) => void;
 }
 
 const BlockItemMemo = memo(
   ({
     isPreview,
     isSelected,
-    showSettings,
+    selectBlock,
+    blockName,
     blockProps,
     styleSettings,
     children,
   }: IBlockItemMemoProps) => {
     const Tag = blockProps.tag || ('div' as any); // FIXME: any
+    const blockRef = useRef<Element | null>(null);
     const { styleObject, class: className, ...otherAttribs } = blockProps.attribs;
 
     const onSelectBlock = (e: Event) => {
       e.stopPropagation();
-      showSettings(blockProps.id);
+      let rect = {} as DOMRect;
+      if (blockRef.current) rect = blockRef.current!.getBoundingClientRect();
+      selectBlock({ id: blockProps.id, blockName, rect });
     };
 
     const classValue = classNames(
@@ -40,6 +63,7 @@ const BlockItemMemo = memo(
           ...styleObject,
           ...styleSettings,
         }}
+        ref={blockRef}
         onMouseDown={onSelectBlock}
       >
         {isPreview && 'Preview!'}
@@ -48,21 +72,3 @@ const BlockItemMemo = memo(
     );
   }
 );
-
-interface IBlockItemProps<T> {
-  blockProps: IBlockProps<T>;
-  styleSettings?: React.CSSProperties;
-  children: React.ReactNode;
-}
-
-export default function BlockItem<T>(props: IBlockItemProps<T>) {
-  const { isPreview, selectedBlockId, showSettings } = useEditor();
-  return (
-    <BlockItemMemo
-      {...props}
-      isPreview={isPreview}
-      isSelected={selectedBlockId === props.blockProps.id}
-      showSettings={showSettings}
-    />
-  );
-}

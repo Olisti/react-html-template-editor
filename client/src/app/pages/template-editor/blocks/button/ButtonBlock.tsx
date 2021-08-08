@@ -12,6 +12,7 @@ interface IButtonSettings {
 export default function ButtonBlock(props: IBlockProps<IButtonSettings>) {
   return (
     <BlockItem
+      blockName="Button"
       blockProps={props}
       styleSettings={{ padding: props.settings.padding, margin: props.settings.margin }}
     >

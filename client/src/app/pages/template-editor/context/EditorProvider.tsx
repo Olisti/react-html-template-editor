@@ -3,6 +3,7 @@ import {
   IEditorData,
   IEditorNodeEl,
   IEditorState,
+  ISelectBlockProps,
   IUpdateSettingsProps,
 } from './types';
 import { ITemplate } from '@/types/template';
@@ -26,7 +27,7 @@ const initialState: IEditorState = {
   nodes: {},
   rootNodeId: null,
   isPreview: false,
-  selectedBlockId: null,
+  selectedBlock: null,
 };
 
 const htmlParser = new HtmlToNodesParser();
@@ -80,8 +81,8 @@ export const EditorProvider = ({
 
   const onSave = () => saveHandler && saveHandler({ html: state.html, name: state.name });
 
-  const showSettings = (id: string | null) => {
-    dispatch({ type: 'SET_SELECTED_BLOCK_ID', payload: id });
+  const selectBlock = (data: ISelectBlockProps) => {
+    dispatch({ type: 'SET_SELECTED_BLOCK', payload: data });
   };
 
   const updateSettings = (props: IUpdateSettingsProps) => {
@@ -95,7 +96,7 @@ export const EditorProvider = ({
     setHtml,
     renderHtml,
     onSave,
-    showSettings,
+    selectBlock,
     updateSettings,
   };
 

@@ -4,29 +4,8 @@ import { blockSettings } from './blocks';
 import { useEditor } from './context/EditorContext';
 import { Box, Heading } from '@chakra-ui/react';
 
-const BlockSettings = memo(
-  ({
-    selectedBlock,
-    updateSettings,
-  }: {
-    selectedBlock: IEditorNode | null;
-    updateSettings: (props: IUpdateSettingsProps) => void;
-  }) => {
-    const updateSettingsById = useCallback(
-      ({ key, value }: IUpdateSettingsProps) =>
-        updateSettings({ id: selectedBlock?.props?.id || '', key, value }),
-      [selectedBlock, updateSettings]
-    );
-    if (!selectedBlock || !selectedBlock.blockName) return null;
-    const Settings = blockSettings[selectedBlock.blockName];
-    return (
-      <Settings blockSettings={selectedBlock.props?.settings} updateSettings={updateSettingsById} />
-    );
-  }
-);
-
 export default function TemplateEditorSettings() {
-  const { nodes, selectedBlockId, updateSettings } = useEditor();
+  const { nodes, selectedBlock, updateSettings } = useEditor();
 
   return (
     <Box padding="0.75em 1em">
@@ -36,9 +15,30 @@ export default function TemplateEditorSettings() {
       </Heading>
 
       <BlockSettings
-        selectedBlock={selectedBlockId ? nodes[selectedBlockId] : null}
+        selectedNode={selectedBlock?.id ? nodes[selectedBlock.id] : null}
         updateSettings={updateSettings}
       />
     </Box>
   );
 }
+
+const BlockSettings = memo(
+  ({
+    selectedNode,
+    updateSettings,
+  }: {
+    selectedNode: IEditorNode | null;
+    updateSettings: (props: IUpdateSettingsProps) => void;
+  }) => {
+    const updateSettingsById = useCallback(
+      ({ key, value }: IUpdateSettingsProps) =>
+        updateSettings({ id: selectedNode?.props?.id || '', key, value }),
+      [selectedNode, updateSettings]
+    );
+    if (!selectedNode || !selectedNode.blockName) return null;
+    const Settings = blockSettings[selectedNode.blockName];
+    return (
+      <Settings blockSettings={selectedNode.props?.settings} updateSettings={updateSettingsById} />
+    );
+  }
+);

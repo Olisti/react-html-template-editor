@@ -1,4 +1,4 @@
-import { IEditorNodeEl, IEditorState, IUpdateSettingsProps } from './types';
+import { IEditorNodeEl, IEditorState, ISelectBlockProps, IUpdateSettingsProps } from './types';
 import { createContext, useContext } from 'react';
 
 export interface IEditorContext extends IEditorState {
@@ -6,7 +6,7 @@ export interface IEditorContext extends IEditorState {
   setHtml: (html: string) => void;
   renderHtml: (domTree: IEditorNodeEl | null) => void;
   onSave: () => void;
-  showSettings: (id: string | null) => void;
+  selectBlock: (data: ISelectBlockProps) => void;
   updateSettings: (props: IUpdateSettingsProps) => void;
 }
 

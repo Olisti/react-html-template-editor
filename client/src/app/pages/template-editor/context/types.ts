@@ -9,7 +9,7 @@ export interface IEditorState extends IEditorData {
   nodes: IEditorNodes;
   rootNodeId: string | null;
   isPreview: boolean;
-  selectedBlockId: string | null;
+  selectedBlock: ISelectedBlock;
 }
 
 export interface IEditorAction {
@@ -19,9 +19,17 @@ export interface IEditorAction {
     | 'SET_NODES'
     | 'SET_ROOT_NODE_ID'
     | 'SET_IS_PREVIEW'
-    | 'SET_SELECTED_BLOCK_ID'
+    | 'SET_SELECTED_BLOCK'
     | 'UPDATE_BLOCK_SETTINGS';
   payload: any;
+}
+
+export type ISelectedBlock = { id: string | null; blockName: string; rect: DOMRect } | null;
+
+export interface ISelectBlockProps {
+  id: string | null;
+  blockName: string;
+  rect: DOMRect;
 }
 
 export interface IEditorNode {

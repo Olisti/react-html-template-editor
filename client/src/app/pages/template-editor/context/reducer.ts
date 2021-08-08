@@ -12,8 +12,8 @@ export function reducer(state: IEditorState, action: IEditorAction): IEditorStat
       return { ...state, rootNodeId: action.payload };
     case 'SET_IS_PREVIEW':
       return { ...state, isPreview: action.payload };
-    case 'SET_SELECTED_BLOCK_ID':
-      return { ...state, selectedBlockId: action.payload };
+    case 'SET_SELECTED_BLOCK':
+      return { ...state, selectedBlock: action.payload };
     case 'UPDATE_BLOCK_SETTINGS':
       const { id, key, value } = action.payload;
       let node = state.nodes[id];
