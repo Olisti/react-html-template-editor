@@ -72,6 +72,7 @@ export const EditorProvider = ({
       const { nodes, rootNodeId } = htmlParser.parse(html || '');
       dispatch({ type: 'SET_NODES', payload: nodes });
       dispatch({ type: 'SET_ROOT_NODE_ID', payload: rootNodeId });
+      dispatch({ type: 'SET_SELECTED_BLOCK', payload: null });
     }, 500),
     []
   );

@@ -1,7 +1,7 @@
-import React, { useCallback, useMemo, useRef } from 'react';
+import React, { memo, useRef } from 'react';
 import classNames from 'classnames';
 import { useEditor } from '../context/EditorProvider';
-import { IBlockProps } from '../context/types';
+import { IBlockProps, ISelectBlockProps } from '../context/types';
 
 interface IBlockItemProps<T> {
   blockName: string;
@@ -10,40 +10,54 @@ interface IBlockItemProps<T> {
   children: React.ReactNode;
 }
 
-export default function BlockItem<T>({
-  blockProps,
-  blockName,
-  styleSettings,
-  children,
-}: IBlockItemProps<T>) {
-  const { styleObject, class: className, ...otherAttribs } = blockProps.attribs;
+export default function BlockItem<T>(props: IBlockItemProps<T>) {
   const { isPreview, selectedBlock, selectBlock } = useEditor();
-  const blockRef = useRef<Element | null>(null);
-  const Tag = blockProps.tag || ('div' as any); // FIXME: any
-
-  const isSelected = useMemo(
-    () => selectedBlock?.id === blockProps.id,
-    [selectedBlock, blockProps]
+  return (
+    <BlockItemMemo
+      {...props}
+      blockName={props.blockName}
+      isPreview={isPreview}
+      isSelected={selectedBlock?.id === props.blockProps.id}
+      selectBlock={selectBlock}
+    />
   );
+}
 
-  const classValue = classNames(
-    className,
-    isPreview && 'editor-block',
-    isPreview && isSelected && 'editor-block__selected'
-  );
+interface IBlockItemMemoProps extends IBlockItemProps<any> {
+  blockName: string;
+  isPreview: boolean;
+  isSelected: boolean;
+  selectBlock: (data: ISelectBlockProps) => void;
+}
 
-  const onSelectBlock = useCallback(
-    () => (e: Event) => {
+const BlockItemMemo = memo(
+  ({
+    blockName,
+    isPreview,
+    isSelected,
+    selectBlock,
+    blockProps,
+    styleSettings,
+    children,
+  }: IBlockItemMemoProps) => {
+    const blockRef = useRef<Element | null>(null);
+    const Tag = blockProps.tag || ('div' as any); // FIXME: any
+    const { styleObject, class: className, ...otherAttribs } = blockProps.attribs;
+
+    const onSelectBlock = (e: Event) => {
       e.stopPropagation();
       let rect = {} as DOMRect;
       if (blockRef.current) rect = blockRef.current!.getBoundingClientRect();
       selectBlock({ id: blockProps.id, blockName, rect });
-    },
-    [blockProps, blockName, selectBlock]
-  );
+    };
 
-  return useMemo(
-    () => (
+    const classValue = classNames(
+      className,
+      isPreview && 'editor-block',
+      isPreview && isSelected && 'editor-block__selected'
+    );
+
+    return (
       <Tag
         {...otherAttribs}
         {...(classValue && { className: classValue })}
@@ -57,7 +71,6 @@ export default function BlockItem<T>({
         {isPreview && 'Preview!'}
         {children}
       </Tag>
-    ),
-    [Tag, classValue, otherAttribs, styleObject, styleSettings, isPreview, onSelectBlock, children]
-  );
-}
+    );
+  }
+);
