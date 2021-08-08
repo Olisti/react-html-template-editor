@@ -7,9 +7,16 @@ import {
   IUpdateSettingsProps,
 } from './types';
 import { ITemplate } from '@/types/template';
-import { Reducer, useCallback, useEffect, useReducer, useRef } from 'react';
+import {
+  createContext,
+  Reducer,
+  useCallback,
+  useEffect,
+  useReducer,
+  useRef,
+  useContext,
+} from 'react';
 import { HtmlToNodesParser } from '../services/htmlToNodesParser';
-import { EditorContext, IEditorContext } from './EditorContext';
 import { reducer } from './reducer';
 import debounce from 'lodash.debounce';
 import { renderNodesToHtml } from '../services/nodesToHtmlRender';
@@ -101,4 +108,21 @@ export const EditorProvider = ({
   };
 
   return <EditorContext.Provider value={value}>{children}</EditorContext.Provider>;
+};
+
+interface IEditorContext extends IEditorState {
+  setName: (name: string) => void;
+  setHtml: (html: string) => void;
+  renderHtml: (domTree: IEditorNodeEl | null) => void;
+  onSave: () => void;
+  selectBlock: (data: ISelectBlockProps) => void;
+  updateSettings: (props: IUpdateSettingsProps) => void;
+}
+
+export const EditorContext = createContext({} as IEditorContext);
+
+export const useEditor = () => {
+  const context = useContext(EditorContext);
+  if (!context) throw new Error('useEditor must be used within a EditorContext');
+  return context;
 };
