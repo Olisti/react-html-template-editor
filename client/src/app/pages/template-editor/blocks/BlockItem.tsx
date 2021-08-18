@@ -45,9 +45,9 @@ const BlockItemMemo = memo(
     const { styleObject, class: className, ...otherAttribs } = blockProps.attribs;
 
     const onSelectBlock = (e: Event) => {
+      if (!blockRef.current) return;
       e.stopPropagation();
-      let rect = {} as DOMRect;
-      if (blockRef.current) rect = blockRef.current!.getBoundingClientRect();
+      const rect = blockRef.current!.getBoundingClientRect();
       selectBlock({ id: blockProps.id, blockName, rect });
     };
 

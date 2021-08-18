@@ -24,6 +24,7 @@ import { renderNodesToHtml } from '../services/nodesToHtmlRender';
 interface IEditorProviderProps {
   template?: ITemplate | null;
   isPreview: boolean;
+  isDragging?: boolean;
   saveHandler?: (data: IEditorData) => void;
   children: React.ReactNode;
 }
@@ -42,6 +43,7 @@ const htmlParser = new HtmlToNodesParser();
 export const EditorProvider = ({
   template,
   isPreview,
+  isDragging,
   saveHandler,
   children,
 }: IEditorProviderProps) => {
@@ -100,6 +102,7 @@ export const EditorProvider = ({
 
   const value: IEditorContext = {
     ...state,
+    isDragging: isDragging || false,
     setName: (name: string) => dispatch({ type: 'SET_NAME', payload: name }),
     setHtml,
     renderHtml,
@@ -112,6 +115,7 @@ export const EditorProvider = ({
 };
 
 interface IEditorContext extends IEditorState {
+  isDragging: boolean;
   setName: (name: string) => void;
   setHtml: (html: string) => void;
   renderHtml: (domTree: IEditorNodeEl | null) => void;
