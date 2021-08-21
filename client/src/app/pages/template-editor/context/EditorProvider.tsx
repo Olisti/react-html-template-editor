@@ -1,4 +1,5 @@
 import {
+  IAddBlockProps,
   IEditorAction,
   IEditorData,
   IEditorNodeEl,
@@ -91,6 +92,10 @@ export const EditorProvider = ({
 
   const onSave = () => saveHandler && saveHandler({ html: state.html, name: state.name });
 
+  const addBlock = (data: IAddBlockProps) => {
+    console.log('TODO: addBlock', data);
+  };
+
   const selectBlock = (data: ISelectBlockProps) => {
     dispatch({ type: 'SET_SELECTED_BLOCK', payload: data });
   };
@@ -107,6 +112,7 @@ export const EditorProvider = ({
     setHtml,
     renderHtml,
     onSave,
+    addBlock,
     selectBlock,
     updateSettings,
   };
@@ -120,6 +126,7 @@ interface IEditorContext extends IEditorState {
   setHtml: (html: string) => void;
   renderHtml: (domTree: IEditorNodeEl | null) => void;
   onSave: () => void;
+  addBlock: (data: IAddBlockProps) => void;
   selectBlock: (data: ISelectBlockProps) => void;
   updateSettings: (props: IUpdateSettingsProps) => void;
 }

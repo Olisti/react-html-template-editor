@@ -1,5 +1,7 @@
 import { JSXElementConstructor, ReactElement } from 'react';
 
+export type IBlockType = 'ContainerBlock' | 'ButtonBlock' | 'TextBlock' | 'ImageBlock';
+
 export interface IEditorData {
   name: string;
   html: string;
@@ -58,4 +60,15 @@ export interface IUpdateSettingsProps {
   id: string;
   key: string;
   value: any;
+}
+
+export interface IAddBlockProps {
+  blockId: string;
+  blockType: string;
+  innerIndex: number;
+}
+
+export interface IDragBlockInfo {
+  name: string;
+  type: IBlockType;
 }

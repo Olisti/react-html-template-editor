@@ -8,6 +8,9 @@ export default {
     <button data-block="button">Button2</button>
     <button data-block="button">Button3</button>
     <p>Text</p>
-    <div data-block="container" style="margin: 50px"></div>
+    <div data-block="container" style="margin: 50px">
+      <button data-block="button">Container button 1</button>
+      <button data-block="button">Container button 2</button>
+    </div>
 </div>`,
 } as ITemplate;

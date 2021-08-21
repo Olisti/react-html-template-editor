@@ -1,8 +1,9 @@
 import { FormControl, FormLabel, Input, Stack } from '@chakra-ui/react';
-import React from 'react';
+import React, { Children } from 'react';
 import { IBlockSettingsProps } from '..';
-import { IBlockProps } from '../../context/types';
+import { IBlockProps, IBlockType } from '../../context/types';
 import BlockItem from '../BlockItem';
+import DropArea from '../DropArea';
 
 interface IContainerSettings {
   margin: string;
@@ -10,13 +11,22 @@ interface IContainerSettings {
 }
 
 export default function ContainerBlock(props: IBlockProps<IContainerSettings>) {
+  const accept: IBlockType[] = ['ButtonBlock'];
   return (
     <BlockItem
       blockName="Container"
       blockProps={props}
       styleSettings={{ padding: props.settings.padding, margin: props.settings.margin }}
     >
-      {props.children}
+      {Children.map(props.children, (child, index) => (
+        <>
+          <DropArea accept={accept} blockId={props.id} innerIndex={index} />
+          {child}
+          {Children.count(props.children) === index + 1 && (
+            <DropArea accept={accept} blockId={props.id} innerIndex={index + 1} />
+          )}
+        </>
+      ))}
     </BlockItem>
   );
 }
