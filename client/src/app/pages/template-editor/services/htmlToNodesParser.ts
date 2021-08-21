@@ -42,6 +42,7 @@ export class HtmlToNodesParser {
         const props: IBlockProps<any> = {
           id: node.id!,
           tag: node.name,
+          key: index,
           attribs: { ...node.attribs, styleObject },
           settings: { padding: styleObject?.padding || null, margin: styleObject?.margin || null },
         };
@@ -64,6 +65,7 @@ export class HtmlToNodesParser {
         const props: IBlockProps<any> = {
           id: node.id!,
           tag: node.name,
+          key: index,
           attribs: { ...node.attribs, styleObject },
           settings: { padding: styleObject?.padding || null, margin: styleObject?.margin || null },
         };
@@ -85,7 +87,7 @@ export class HtmlToNodesParser {
         const processed = this.processNodeDefinitions.processDefaultNode(node, [], index);
         this.nodes[node.id!] = {
           isBlock: false,
-          props: {} as IBlockProps<any>,
+          props: { key: index } as IBlockProps<any>,
           children: (node.children || []).filter((child) => !!child.id).map((child) => child.id!),
           el: processed,
         };

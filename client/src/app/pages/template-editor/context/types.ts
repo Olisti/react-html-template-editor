@@ -45,6 +45,7 @@ export interface IEditorNode {
 export interface IBlockProps<S> {
   id: string;
   tag: string;
+  key: string | number;
   attribs: { styleObject: any; [key: string]: string };
   settings: S;
   children?: React.ReactNode;
