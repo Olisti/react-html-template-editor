@@ -9,6 +9,7 @@ import {
 import { IBlockProps, IEditorNodes } from './../context/types';
 import ButtonBlock from '../blocks/button/ButtonBlock';
 import { getStyleObjectFromString } from './helpers';
+import ContainerBlock from '../blocks/container/ContainerBlock';
 
 const htmlToReactParser = new Parser();
 
@@ -33,12 +34,34 @@ export class HtmlToNodesParser {
       shouldProcessNode: (node) => node.type === 'text' && node.data.trim() === '',
       processNode: () => null,
     },
+    // container
+    {
+      shouldProcessNode: (node) => node.attribs?.['data-block'] === 'container',
+      processNode: (node, children, index) => {
+        const styleObject = getStyleObjectFromString(node.attribs?.style);
+        const props: IBlockProps<any> = {
+          id: node.id!,
+          tag: node.name,
+          attribs: { ...node.attribs, styleObject },
+          settings: { padding: styleObject?.padding || null, margin: styleObject?.margin || null },
+        };
+        const el = React.createElement(ContainerBlock, props, children);
+        this.nodes[node.id!] = {
+          isBlock: true,
+          blockName: 'ContainerBlock',
+          props,
+          children: (node.children || []).filter((child) => !!child.id).map((child) => child.id!),
+          el,
+        };
+        return el;
+      },
+    },
     // button
     {
       shouldProcessNode: (node) => node.attribs?.['data-block'] === 'button',
       processNode: (node, children, index) => {
         const styleObject = getStyleObjectFromString(node.attribs?.style);
-        let props: IBlockProps<any> = {
+        const props: IBlockProps<any> = {
           id: node.id!,
           tag: node.name,
           attribs: { ...node.attribs, styleObject },

@@ -12,8 +12,10 @@ export default function TemplateEditorBlocks({ setDragging }: ITemplateEditorBlo
       <Heading size="md" color="gray.500" marginBottom="0.3em" textAlign="center" fontWeight="500">
         Blocks
       </Heading>
+      <Block name="Container" type="ContainerBlock" setDragging={setDragging} />
       <Block name="Button" type="ButtonBlock" setDragging={setDragging} />
       <Block name="Text" type="TextBlock" setDragging={setDragging} />
+      <Block name="Image" type="ImageBlock" setDragging={setDragging} />
     </Box>
   );
 }
