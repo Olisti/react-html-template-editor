@@ -1,5 +1,6 @@
 import React from 'react';
 import ButtonBlock from './button/ButtonBlock';
+import { defaultButtonSettings } from './button/buttonSettings';
 import ContainerBlock from './container/ContainerBlock';
 
 export interface IBlockSettingsProps<T> {
@@ -7,7 +8,21 @@ export interface IBlockSettingsProps<T> {
   updateSettings: (props: { key: string; value: any }) => void;
 }
 
-export const blockSettings = {
-  ContainerBlock: ContainerBlock.settings,
-  ButtonBlock: ButtonBlock.settings,
-} as { [key: string]: React.FunctionComponent<any> };
+interface IBlock {
+  item: React.FunctionComponent<any>;
+  settings: React.FunctionComponent<any>;
+  defaultSettings: { props: any; children: any };
+}
+
+export const blocks = {
+  ContainerBlock: {
+    item: ContainerBlock,
+    settings: ContainerBlock.settings,
+    defaultSettings: { props: {}, children: {} },
+  },
+  ButtonBlock: {
+    item: ButtonBlock,
+    settings: ButtonBlock.settings,
+    defaultSettings: defaultButtonSettings,
+  },
+} as { [key: string]: IBlock };

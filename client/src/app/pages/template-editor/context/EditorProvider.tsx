@@ -21,6 +21,7 @@ import { HtmlToNodesParser } from '../services/htmlToNodesParser';
 import { reducer } from './reducer';
 import debounce from 'lodash.debounce';
 import { renderNodesToHtml } from '../services/nodesToHtmlRender';
+import { addNodeOperation } from './helpers';
 
 interface IEditorProviderProps {
   template?: ITemplate | null;
@@ -94,6 +95,8 @@ export const EditorProvider = ({
 
   const addBlock = (data: IAddBlockProps) => {
     console.log('TODO: addBlock', data);
+    const newNodes = addNodeOperation({ nodes: state.nodes, ...data });
+    dispatch({ type: 'SET_NODES', payload: newNodes });
   };
 
   const selectBlock = (data: ISelectBlockProps) => {

@@ -1,6 +1,6 @@
 import { IUpdateSettingsProps } from './context/types';
 import React, { useCallback, useMemo } from 'react';
-import { blockSettings } from './blocks';
+import { blocks } from './blocks';
 import { useEditor } from './context/EditorProvider';
 import { Box, Heading } from '@chakra-ui/react';
 
@@ -12,7 +12,7 @@ export default function TemplateEditorSettings() {
   );
 
   const Settings = useMemo(
-    () => (selectedNode?.blockName ? blockSettings[selectedNode.blockName] : null),
+    () => (selectedNode?.blockName ? blocks[selectedNode.blockName].settings : null),
     [selectedNode?.blockName]
   );
 
