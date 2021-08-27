@@ -23,26 +23,28 @@ export default function TemplateEditorSettings() {
   );
 
   return useMemo(
-    () =>
-      !selectedNode || !Settings ? null : (
-        <Box padding="0.75em 1em">
-          {/* <Heading size="sm" color="gray.500" marginBottom="0.3em" textAlign="center"> */}
-          <Heading
-            size="md"
-            color="gray.500"
-            marginBottom="0.3em"
-            textAlign="center"
-            fontWeight="500"
-          >
-            Settings
-          </Heading>
+    () => (
+      <Box padding="0.75em 1em">
+        <Heading
+          size="md"
+          color="gray.500"
+          marginBottom="0.3em"
+          textAlign="center"
+          fontWeight="500"
+        >
+          Settings
+        </Heading>
 
+        {!selectedNode || !Settings ? (
+          <Box>Click on a component to start editing.</Box>
+        ) : (
           <Settings
             blockSettings={selectedNode.props?.settings}
             updateSettings={updateSettingsById}
           />
-        </Box>
-      ),
+        )}
+      </Box>
+    ),
     [selectedNode, Settings, updateSettingsById]
   );
 }
