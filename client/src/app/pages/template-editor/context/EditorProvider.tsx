@@ -94,7 +94,6 @@ export const EditorProvider = ({
   const onSave = () => saveHandler && saveHandler({ html: state.html, name: state.name });
 
   const addBlock = (data: IAddBlockProps) => {
-    console.log('TODO: addBlock', data);
     const newNodes = addNodeOperation({ nodes: state.nodes, ...data });
     dispatch({ type: 'SET_NODES', payload: newNodes });
   };

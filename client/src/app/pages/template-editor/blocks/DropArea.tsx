@@ -1,5 +1,5 @@
 import { Box } from '@chakra-ui/react';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDrop } from 'react-dnd';
 import { useEditor } from '../context/EditorProvider';
 import { IAddBlockProps, IBlockType, IDragBlockInfo } from '../context/types';
@@ -10,7 +10,11 @@ interface IDropAreaProps extends Omit<IAddBlockProps, 'blockType'> {
 
 export default function DropArea(props: IDropAreaProps) {
   const { isPreview, addBlock } = useEditor();
-  if (!isPreview) return null;
+  const [isShown, setShown] = useState(false);
+  useEffect(() => {
+    setImmediate(() => setShown(isPreview));
+  }, [isPreview]);
+  if (!isShown) return null;
   return <DropAreaItem {...props} addBlock={addBlock} />;
 }
 
