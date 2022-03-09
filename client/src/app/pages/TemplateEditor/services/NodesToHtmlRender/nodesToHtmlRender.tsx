@@ -1,19 +1,16 @@
 import ReactDOM from 'react-dom';
-import { EditorProvider } from '../context/EditorProvider';
-import { IEditorNodeEl } from '../context/types';
-import { htmlBeautify } from './htmlBeautify';
 
-interface IRenderNodesToHtml {
-  setHtml: (html: string) => void;
-  domTree: IEditorNodeEl | null;
-}
+import { htmlBeautify } from './utils';
+import { IRenderNodesToHtml } from './types';
+import { EditorProvider } from '../../context/EditorProvider';
 
 export function renderNodesToHtml({ setHtml, domTree }: IRenderNodesToHtml) {
   const container = document.createElement('div');
   ReactDOM.render(<EditorProvider isPreview={false}>{domTree}</EditorProvider>, container);
 
   setImmediate(() => {
-    setHtml(htmlBeautify(decodeHTMLEntities(container.innerHTML)));
+    const newHtml = htmlBeautify(decodeHTMLEntities(container.innerHTML));
+    setHtml(newHtml);
   });
 }
 

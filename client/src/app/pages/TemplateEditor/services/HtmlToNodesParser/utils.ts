@@ -1,6 +1,6 @@
 export const getStyleObjectFromString = (str: string) => {
   if (!str) return {};
-  const style: { [key: string]: string } = {};
+  const style: Record<string, string> = {};
   str.split(';').forEach((el) => {
     const [property, value] = el.split(':');
     if (!property) return;

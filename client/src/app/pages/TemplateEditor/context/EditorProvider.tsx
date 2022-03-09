@@ -17,11 +17,11 @@ import {
   useRef,
   useContext,
 } from 'react';
-import { HtmlToNodesParser } from '../services/htmlToNodesParser';
+import { HtmlToNodesParser } from '../services/HtmlToNodesParser';
 import { reducer } from './reducer';
 import debounce from 'lodash.debounce';
-import { renderNodesToHtml } from '../services/nodesToHtmlRender';
 import { addNodeOperation } from './helpers';
+import { renderNodesToHtml } from '../services/NodesToHtmlRender';
 
 interface IEditorProviderProps {
   template?: ITemplate | null;
