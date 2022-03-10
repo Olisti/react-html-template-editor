@@ -1,7 +1,7 @@
 import getRandomId from '@/services/randomId';
 import React from 'react';
-import { EDITOR_BLOCKS } from '../blocks';
-import { IAddBlockProps, IBlockProps, IEditorAction, IEditorNodes, IEditorState } from './types';
+import { EDITOR_BLOCKS, IBlockProps } from '../blocks';
+import { IAddBlockProps, IEditorAction, IEditorNodes, IEditorState } from './types';
 
 export function reducer(state: IEditorState, action: IEditorAction): IEditorState {
   switch (action.type) {

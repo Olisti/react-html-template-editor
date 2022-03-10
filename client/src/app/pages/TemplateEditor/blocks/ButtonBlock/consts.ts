@@ -1,6 +1,7 @@
-import { IBlockSettings } from '../types';
+import { IBlockSettings } from '..';
+import { IButtonSettings } from './types';
 
-export const DEFAULT_BUTTON_SETTINGS: IBlockSettings = {
+export const DEFAULT_BUTTON_SETTINGS: IBlockSettings<IButtonSettings> = {
   props: {
     tag: 'button',
     attribs: { 'data-block': 'button', styleObject: {} },

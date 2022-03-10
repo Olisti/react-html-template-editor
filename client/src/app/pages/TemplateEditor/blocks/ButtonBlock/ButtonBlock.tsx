@@ -1,15 +1,15 @@
-import React, { VFC } from 'react';
+import React, { FC } from 'react';
 
 import { IButtonSettings } from './types';
 import BlockItem from '../BlockItem';
 import { IBlockProps } from '..';
 
-const ButtonBlock: VFC<IBlockProps<IButtonSettings>> = (props) => {
+const ButtonBlock: FC<IBlockProps<IButtonSettings>> = (props) => {
   return (
     <BlockItem
       blockName="Button"
       blockProps={props}
-      styleSettings={{ padding: props.settings.padding, margin: props.settings.margin }}
+      styleSettings={{ padding: props.settings.padding || 0, margin: props.settings.margin || 0 }}
     >
       {props.children}
     </BlockItem>

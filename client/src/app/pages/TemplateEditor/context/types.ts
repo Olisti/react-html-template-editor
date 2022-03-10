@@ -48,8 +48,6 @@ export interface ISelectBlockProps {
   rect: DOMRect;
 }
 
-//
-
 export type IEditorNodeEl = ReactElement<any, string | JSXElementConstructor<any>>;
 
 export interface IEditorNodes {
