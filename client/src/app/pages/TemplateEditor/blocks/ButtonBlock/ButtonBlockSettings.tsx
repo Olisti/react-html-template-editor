@@ -1,32 +1,13 @@
+import React, { VFC } from 'react';
 import { FormControl, FormLabel, Input, Stack } from '@chakra-ui/react';
-import React from 'react';
-import { IBlockSettingsProps } from '..';
-import { IBlockProps } from '../../context/types';
-import BlockItem from '../BlockItem';
 
-interface IButtonSettings {
-  margin: string;
-  padding: string;
-}
+import { IButtonSettings } from './types';
+import { IBlockSettingsProps } from '../types';
 
-export default function ButtonBlock(props: IBlockProps<IButtonSettings>) {
-  return (
-    <BlockItem
-      blockName="Button"
-      blockProps={props}
-      styleSettings={{ padding: props.settings.padding, margin: props.settings.margin }}
-    >
-      {props.children}
-    </BlockItem>
-  );
-}
-
-ButtonBlock.settings = ButtonBlockSettings;
-
-function ButtonBlockSettings({
+const ButtonBlockSettings: VFC<IBlockSettingsProps<IButtonSettings>> = ({
   blockSettings,
   updateSettings,
-}: IBlockSettingsProps<IButtonSettings>) {
+}) => {
   return (
     <Stack spacing={3}>
       <FormControl>
@@ -57,4 +38,6 @@ function ButtonBlockSettings({
       </FormControl>
     </Stack>
   );
-}
+};
+
+export default ButtonBlockSettings;

@@ -1,6 +1,6 @@
 import getRandomId from '@/services/randomId';
 import React from 'react';
-import { blocks } from '../blocks';
+import { EDITOR_BLOCKS } from '../blocks';
 import { IAddBlockProps, IBlockProps, IEditorNodes } from './types';
 
 export function addNodeOperation({
@@ -10,13 +10,13 @@ export function addNodeOperation({
   innerIndex,
 }: IAddBlockProps & { nodes: IEditorNodes }) {
   const newNodeId = `id-${getRandomId()}`;
-  const defaultSettings = blocks[blockType].defaultSettings;
+  const defaultSettings = EDITOR_BLOCKS[blockType].defaultSettings;
   const props: Partial<IBlockProps<any>> = {
     id: newNodeId,
     key: newNodeId,
     ...defaultSettings.props,
   };
-  const el = React.createElement(blocks[blockType].item, props, defaultSettings.children);
+  const el = React.createElement(EDITOR_BLOCKS[blockType].item, props, defaultSettings.children);
   const newNode = {
     [newNodeId]: {
       isBlock: true,

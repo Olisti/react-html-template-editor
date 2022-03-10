@@ -1,9 +1,9 @@
 import React, { useCallback, useMemo, VFC } from 'react';
 import { Box, Heading } from '@chakra-ui/react';
 
-import { blocks } from '../../blocks';
 import { IUpdateSettingsProps } from '../../context/types';
 import { useEditor } from '../../context/EditorProvider';
+import { EDITOR_BLOCKS } from '../../blocks';
 
 const TemplateEditorSettings: VFC = () => {
   const { nodes, selectedBlock, updateSettings } = useEditor();
@@ -13,7 +13,7 @@ const TemplateEditorSettings: VFC = () => {
   );
 
   const Settings = useMemo(
-    () => (selectedNode?.blockName ? blocks[selectedNode.blockName].settings : null),
+    () => (selectedNode?.blockName ? EDITOR_BLOCKS[selectedNode.blockName].settings : null),
     [selectedNode?.blockName]
   );
 

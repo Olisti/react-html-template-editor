@@ -1,16 +1,10 @@
-import React, { memo, useRef } from 'react';
+import React, { memo, useRef, VFC } from 'react';
 import classNames from 'classnames';
-import { useEditor } from '../context/EditorProvider';
-import { IBlockProps, ISelectBlockProps } from '../context/types';
 
-interface IBlockItemProps<T> {
-  blockName: string;
-  blockProps: IBlockProps<T>;
-  styleSettings?: React.CSSProperties;
-  children: React.ReactNode;
-}
+import { IBlockItemMemoProps, IBlockItemProps } from './types';
+import { useEditor } from '../../context/EditorProvider';
 
-export default function BlockItem<T>(props: IBlockItemProps<T>) {
+function BlockItem<T>(props: IBlockItemProps<T>) {
   const { isPreview, selectedBlock, selectBlock } = useEditor();
   return (
     <BlockItemMemo
@@ -23,23 +17,8 @@ export default function BlockItem<T>(props: IBlockItemProps<T>) {
   );
 }
 
-interface IBlockItemMemoProps extends IBlockItemProps<any> {
-  blockName: string;
-  isPreview: boolean;
-  isSelected: boolean;
-  selectBlock: (data: ISelectBlockProps) => void;
-}
-
-const BlockItemMemo = memo(
-  ({
-    blockName,
-    isPreview,
-    isSelected,
-    selectBlock,
-    blockProps,
-    styleSettings,
-    children,
-  }: IBlockItemMemoProps) => {
+const BlockItemMemo: VFC<IBlockItemMemoProps> = memo(
+  ({ blockName, isPreview, isSelected, selectBlock, blockProps, styleSettings, children }) => {
     const blockRef = useRef<Element | null>(null);
     const Tag = blockProps.tag || ('div' as any); // FIXME: any
     const { styleObject, class: className, ...otherAttribs } = blockProps.attribs;
@@ -74,3 +53,5 @@ const BlockItemMemo = memo(
     );
   }
 );
+
+export default BlockItem;

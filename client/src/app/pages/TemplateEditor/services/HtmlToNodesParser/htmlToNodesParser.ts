@@ -5,8 +5,7 @@ import getRandomId from '@/services/randomId';
 import { IParserNode, IPreprocessingInstruction, IProcessingInstruction } from './types';
 import { getStyleObjectFromString } from './utils';
 import { IBlockProps, IEditorNodes } from '../../context/types';
-import ButtonBlock from '../../blocks/button/ButtonBlock';
-import ContainerBlock from '../../blocks/container/ContainerBlock';
+import { ContainerBlock, ButtonBlock } from '../../blocks';
 
 const htmlToReactParser = new Parser();
 
