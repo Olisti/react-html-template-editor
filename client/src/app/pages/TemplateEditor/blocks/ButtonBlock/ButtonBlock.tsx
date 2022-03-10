@@ -1,11 +1,10 @@
-import React from 'react';
+import React, { VFC } from 'react';
 
 import { IButtonSettings } from './types';
-import ButtonBlockSettings from './ButtonBlockSettings';
-import { IBlockProps } from '../../context/types';
 import BlockItem from '../BlockItem';
+import { IBlockProps } from '..';
 
-const ButtonBlock = (props: IBlockProps<IButtonSettings>) => {
+const ButtonBlock: VFC<IBlockProps<IButtonSettings>> = (props) => {
   return (
     <BlockItem
       blockName="Button"
@@ -16,7 +15,5 @@ const ButtonBlock = (props: IBlockProps<IButtonSettings>) => {
     </BlockItem>
   );
 };
-
-ButtonBlock.settings = ButtonBlockSettings;
 
 export default ButtonBlock;

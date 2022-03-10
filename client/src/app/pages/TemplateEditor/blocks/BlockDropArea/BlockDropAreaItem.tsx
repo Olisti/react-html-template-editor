@@ -2,8 +2,8 @@ import React, { VFC } from 'react';
 import { useDrop } from 'react-dnd';
 import { Box } from '@chakra-ui/react';
 
-import { IDragBlockInfo } from '../../context/types';
 import { IBlockDropAreaItemProps } from './types';
+import { IDragBlockInfo } from '..';
 
 const BlockDropAreaItem: VFC<IBlockDropAreaItemProps> = ({
   accept,

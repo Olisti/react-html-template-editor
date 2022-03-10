@@ -1,4 +1,4 @@
-import { ISelectedBlock } from '../../context/types';
+import { ISelectedBlock } from '../../context';
 
 export interface ITemplateEditorToolItemProps {
   selectedBlock: ISelectedBlock;

@@ -2,8 +2,7 @@ import React, { useCallback, useEffect, useMemo, useState, VFC } from 'react';
 import debounce from 'lodash.debounce';
 
 import { getTree } from './utils';
-import { useEditor } from '../../context/EditorProvider';
-import { IEditorNodeEl } from '../../context/types';
+import { useEditor, IEditorNodeEl } from '../../context';
 
 const TemplateEditorPreview: VFC = () => {
   const { nodes, rootNodeId, renderHtml } = useEditor();

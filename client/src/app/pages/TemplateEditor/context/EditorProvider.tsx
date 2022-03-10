@@ -1,55 +1,35 @@
+import { Reducer, useCallback, useEffect, useReducer, useRef, VFC } from 'react';
+import debounce from 'lodash.debounce';
+
 import {
   IAddBlockProps,
   IEditorAction,
-  IEditorData,
+  IEditorContext,
   IEditorNodeEl,
+  IEditorProviderProps,
   IEditorState,
   ISelectBlockProps,
   IUpdateSettingsProps,
 } from './types';
-import { ITemplate } from '@/types/template';
-import {
-  createContext,
-  Reducer,
-  useCallback,
-  useEffect,
-  useReducer,
-  useRef,
-  useContext,
-} from 'react';
+import { reducer, addNodeOperation } from './utils';
+import { INITIAL_STATE } from './consts';
+import { EditorContext } from './EditorContext';
 import { HtmlToNodesParser } from '../services/HtmlToNodesParser';
-import { reducer } from './reducer';
-import debounce from 'lodash.debounce';
-import { addNodeOperation } from './helpers';
 import { renderNodesToHtml } from '../services/NodesToHtmlRender';
-
-interface IEditorProviderProps {
-  template?: ITemplate | null;
-  isPreview: boolean;
-  isDragging?: boolean;
-  saveHandler?: (data: IEditorData) => void;
-  children: React.ReactNode;
-}
-
-const initialState: IEditorState = {
-  name: '',
-  html: '',
-  nodes: {},
-  rootNodeId: null,
-  isPreview: false,
-  selectedBlock: null,
-};
 
 const htmlParser = new HtmlToNodesParser();
 
-export const EditorProvider = ({
+const EditorProvider: VFC<IEditorProviderProps> = ({
   template,
   isPreview,
   isDragging,
   saveHandler,
   children,
-}: IEditorProviderProps) => {
-  const [state, dispatch] = useReducer<Reducer<IEditorState, IEditorAction>>(reducer, initialState);
+}) => {
+  const [state, dispatch] = useReducer<Reducer<IEditorState, IEditorAction>>(
+    reducer,
+    INITIAL_STATE
+  );
   const isCodeChangedRef = useRef(false);
 
   useEffect(() => {
@@ -122,21 +102,4 @@ export const EditorProvider = ({
   return <EditorContext.Provider value={value}>{children}</EditorContext.Provider>;
 };
 
-interface IEditorContext extends IEditorState {
-  isDragging: boolean;
-  setName: (name: string) => void;
-  setHtml: (html: string) => void;
-  renderHtml: (domTree: IEditorNodeEl | null) => void;
-  onSave: () => void;
-  addBlock: (data: IAddBlockProps) => void;
-  selectBlock: (data: ISelectBlockProps) => void;
-  updateSettings: (props: IUpdateSettingsProps) => void;
-}
-
-export const EditorContext = createContext({} as IEditorContext);
-
-export const useEditor = () => {
-  const context = useContext(EditorContext);
-  if (!context) throw new Error('useEditor must be used within a EditorContext');
-  return context;
-};
+export default EditorProvider;

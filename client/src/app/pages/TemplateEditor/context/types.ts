@@ -1,10 +1,24 @@
 import { JSXElementConstructor, ReactElement } from 'react';
 
-export type IBlockType = 'ContainerBlock' | 'ButtonBlock' | 'TextBlock' | 'ImageBlock';
+import { IEditorData, ITemplate } from '..';
+import { IBlockProps } from '../blocks';
 
-export interface IEditorData {
-  name: string;
-  html: string;
+export interface IEditorProviderProps {
+  template?: ITemplate | null;
+  isPreview: boolean;
+  isDragging?: boolean;
+  saveHandler?: (data: IEditorData) => void;
+  children: React.ReactNode;
+}
+export interface IEditorContext extends IEditorState {
+  isDragging: boolean;
+  setName: (name: string) => void;
+  setHtml: (html: string) => void;
+  renderHtml: (domTree: IEditorNodeEl | null) => void;
+  onSave: () => void;
+  addBlock: (data: IAddBlockProps) => void;
+  selectBlock: (data: ISelectBlockProps) => void;
+  updateSettings: (props: IUpdateSettingsProps) => void;
 }
 
 export interface IEditorState extends IEditorData {
@@ -34,27 +48,19 @@ export interface ISelectBlockProps {
   rect: DOMRect;
 }
 
-export interface IEditorNode {
-  isBlock: boolean;
-  blockName?: string;
-  props: IBlockProps<any>;
-  children: string[];
-  el: IEditorNodeEl;
-}
-
-export interface IBlockProps<S> {
-  id: string;
-  tag: string;
-  key: string | number;
-  attribs: { styleObject: any; [key: string]: string };
-  settings: S;
-  children?: React.ReactNode;
-}
+//
 
 export type IEditorNodeEl = ReactElement<any, string | JSXElementConstructor<any>>;
 
 export interface IEditorNodes {
   [key: string]: IEditorNode;
+}
+interface IEditorNode {
+  isBlock: boolean;
+  blockName?: string;
+  props: IBlockProps<any>;
+  children: string[];
+  el: IEditorNodeEl;
 }
 
 export interface IUpdateSettingsProps {
@@ -67,9 +73,4 @@ export interface IAddBlockProps {
   blockId: string;
   blockType: string;
   innerIndex: number;
-}
-
-export interface IDragBlockInfo {
-  name: string;
-  type: IBlockType;
 }

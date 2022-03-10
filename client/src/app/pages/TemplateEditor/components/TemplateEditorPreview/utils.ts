@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 
-import { IEditorNodes } from '../../context/types';
+import { IEditorNodes } from '../../context';
 
 export const getTree = (nodes: IEditorNodes, rootNodeId: string | null) => {
   const rootNode = rootNodeId ? nodes[rootNodeId] : null;

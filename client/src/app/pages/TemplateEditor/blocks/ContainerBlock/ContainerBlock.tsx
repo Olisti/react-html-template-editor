@@ -1,12 +1,11 @@
-import React, { Children } from 'react';
+import React, { Children, VFC } from 'react';
 
 import { IContainerSettings } from './types';
-import ContainerBlockSettings from './ContainerBlockSettings';
-import { IBlockProps, IBlockType } from '../../context/types';
 import BlockItem from '../BlockItem';
 import BlockDropArea from '../BlockDropArea';
+import { IBlockType, IBlockProps } from '..';
 
-const ContainerBlock = (props: IBlockProps<IContainerSettings>) => {
+const ContainerBlock: VFC<IBlockProps<IContainerSettings>> = (props) => {
   const accept: IBlockType[] = ['ButtonBlock'];
   return (
     <BlockItem
@@ -26,7 +25,5 @@ const ContainerBlock = (props: IBlockProps<IContainerSettings>) => {
     </BlockItem>
   );
 };
-
-ContainerBlock.settings = ContainerBlockSettings;
 
 export default ContainerBlock;

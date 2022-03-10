@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from 'react';
 
-import { IBlockType } from '../../context/types';
+import { IBlockType } from '../../blocks';
 
 export interface ITemplateEditorBlocksProps {
   setDragging: Dispatch<SetStateAction<boolean>>;

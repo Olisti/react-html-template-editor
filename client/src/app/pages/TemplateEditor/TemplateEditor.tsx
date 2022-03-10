@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Flex, Grid, GridItem } from '@chakra-ui/react';
-import { ITemplate } from '@/types/template';
-import { EditorProvider } from './context/EditorProvider';
-import { IEditorData } from './context/types';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import { Box, Flex, Grid, GridItem } from '@chakra-ui/react';
+
+import { ITemplate, IEditorData } from './types';
+import { DEFAULT_TEMPLATE } from './consts';
+import { EditorProvider } from './context';
 import AppHeader from '@/app/components/AppHeader';
-import defaultTemplate from './defaultTemplate';
 import TemplateEditorBlocks from './components/TemplateEditorBlocks';
 import TemplateEditorBlockTools from './components/TemplateEditorBlockTools';
 import TemplateEditorSettings from './components/TemplateEditorSettings';
@@ -21,7 +21,7 @@ export default function TemplateEditor() {
 
   useEffect(() => {
     // TODO: get id
-    setTemplate(defaultTemplate);
+    setTemplate(DEFAULT_TEMPLATE);
   }, []);
 
   const saveHandler = (data: IEditorData) => {

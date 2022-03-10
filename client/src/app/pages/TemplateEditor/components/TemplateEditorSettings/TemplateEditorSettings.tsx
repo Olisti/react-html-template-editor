@@ -1,9 +1,8 @@
 import React, { useCallback, useMemo, VFC } from 'react';
 import { Box, Heading } from '@chakra-ui/react';
 
-import { IUpdateSettingsProps } from '../../context/types';
-import { useEditor } from '../../context/EditorProvider';
 import { EDITOR_BLOCKS } from '../../blocks';
+import { useEditor, IUpdateSettingsProps } from '../../context';
 
 const TemplateEditorSettings: VFC = () => {
   const { nodes, selectedBlock, updateSettings } = useEditor();

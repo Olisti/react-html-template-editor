@@ -2,7 +2,7 @@ import React, { memo, useRef, VFC } from 'react';
 import classNames from 'classnames';
 
 import { IBlockItemMemoProps, IBlockItemProps } from './types';
-import { useEditor } from '../../context/EditorProvider';
+import { useEditor } from '../../context';
 
 function BlockItem<T>(props: IBlockItemProps<T>) {
   const { isPreview, selectedBlock, selectBlock } = useEditor();

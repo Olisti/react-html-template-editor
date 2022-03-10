@@ -1,4 +1,5 @@
-import { IBlockProps, ISelectBlockProps } from '../../context/types';
+import { IBlockProps } from '..';
+import { ISelectBlockProps } from '../../context';
 
 export interface IBlockItemProps<T> {
   blockName: string;

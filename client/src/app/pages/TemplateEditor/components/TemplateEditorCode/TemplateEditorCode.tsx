@@ -1,7 +1,7 @@
 import React, { useMemo, useCallback, VFC, ChangeEventHandler } from 'react';
 import { Textarea } from '@chakra-ui/textarea';
 
-import { useEditor } from '../../context/EditorProvider';
+import { useEditor } from '../../context';
 
 const TemplateEditorCode: VFC = () => {
   const { html, setHtml } = useEditor();

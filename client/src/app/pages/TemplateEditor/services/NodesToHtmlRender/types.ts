@@ -1,4 +1,4 @@
-import { IEditorNodeEl } from '../../context/types';
+import { IEditorNodeEl } from '../../context';
 
 export interface IRenderNodesToHtml {
   setHtml: (html: string) => void;

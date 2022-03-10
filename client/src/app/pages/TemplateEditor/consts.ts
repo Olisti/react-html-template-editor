@@ -1,6 +1,6 @@
-import { ITemplate } from '@/types/template';
+import { ITemplate } from './types';
 
-export default {
+export const DEFAULT_TEMPLATE: ITemplate = {
   id: null,
   name: 'New template',
   html: `<div style="margin: 50px">
@@ -13,4 +13,4 @@ export default {
       <button data-block="button">Container button 2</button>
     </div>
 </div>`,
-} as ITemplate;
+};

@@ -2,7 +2,7 @@ import ReactDOM from 'react-dom';
 
 import { htmlBeautify } from './utils';
 import { IRenderNodesToHtml } from './types';
-import { EditorProvider } from '../../context/EditorProvider';
+import { EditorProvider } from '../../context';
 
 export function renderNodesToHtml({ setHtml, domTree }: IRenderNodesToHtml) {
   const container = document.createElement('div');

@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 
 import TemplateEditorToolItem from './TemplateEditorToolItem';
-import { useEditor } from '../../context/EditorProvider';
+import { useEditor } from '../../context';
 
 const TemplateEditorBlockTools = () => {
   const { selectedBlock } = useEditor();

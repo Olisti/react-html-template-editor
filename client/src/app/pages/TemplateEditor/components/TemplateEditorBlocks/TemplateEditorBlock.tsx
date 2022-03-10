@@ -3,7 +3,7 @@ import { useDrag } from 'react-dnd';
 import { Button } from '@chakra-ui/react';
 
 import { ITemplateEditorBlockProps } from './types';
-import { IDragBlockInfo } from '../../context/types';
+import { IDragBlockInfo } from '../../blocks';
 
 const TemplateEditorBlock: FC<ITemplateEditorBlockProps> = ({ name, type, setDragging }) => {
   // TODO: drag preview https://react-dnd.github.io/react-dnd/docs/api/use-drag
