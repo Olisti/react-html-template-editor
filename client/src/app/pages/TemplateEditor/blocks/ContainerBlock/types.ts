@@ -1,4 +1,4 @@
 export interface IContainerSettings {
-  margin: string;
-  padding: string;
+  margin: string | null;
+  padding: string | null;
 }

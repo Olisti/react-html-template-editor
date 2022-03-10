@@ -1,4 +1,4 @@
 export interface IButtonSettings {
-  margin: string;
-  padding: string;
+  margin: string | null;
+  padding: string | null;
 }

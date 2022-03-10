@@ -1,7 +1,7 @@
 import getRandomId from '@/services/randomId';
 import React from 'react';
-import { EDITOR_BLOCKS } from '../blocks';
-import { IAddBlockProps, IBlockProps, IEditorAction, IEditorNodes, IEditorState } from './types';
+import { EDITOR_BLOCKS, IBlockProps } from '../blocks';
+import { IAddBlockProps, IEditorAction, IEditorNodes, IEditorState } from './types';
 
 export function reducer(state: IEditorState, action: IEditorAction): IEditorState {
   switch (action.type) {
@@ -41,9 +41,9 @@ export function addNodeOperation({
   const newNodeId = `id-${getRandomId()}`;
   const defaultSettings = EDITOR_BLOCKS[blockType].defaultSettings;
   const props: Partial<IBlockProps<any>> = {
+    ...defaultSettings.props,
     id: newNodeId,
     key: newNodeId,
-    ...defaultSettings.props,
   };
   const el = React.createElement(EDITOR_BLOCKS[blockType].item, props, defaultSettings.children);
   const newNode = {

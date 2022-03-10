@@ -17,8 +17,11 @@ const TemplateEditorSettings: VFC = () => {
   );
 
   const updateSettingsById = useCallback(
-    ({ key, value }: IUpdateSettingsProps) =>
-      updateSettings({ id: selectedNode?.props?.id || '', key, value }),
+    ({ key, value }: IUpdateSettingsProps) => {
+      if (selectedNode?.props?.id) {
+        updateSettings({ id: selectedNode?.props?.id, key, value });
+      }
+    },
     [selectedNode, updateSettings]
   );
 

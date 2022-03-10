@@ -1,4 +1,4 @@
-import { Reducer, useCallback, useEffect, useReducer, useRef, VFC } from 'react';
+import { Reducer, useEffect, useMemo, useReducer, useRef, VFC } from 'react';
 import debounce from 'lodash.debounce';
 
 import {
@@ -50,14 +50,14 @@ const EditorProvider: VFC<IEditorProviderProps> = ({
     debouncedRenderNodes(html);
   };
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const debouncedRenderNodes = useCallback(
-    debounce((html: string) => {
-      const { nodes, rootNodeId } = htmlParser.parse(html || '');
-      dispatch({ type: 'SET_NODES', payload: nodes });
-      dispatch({ type: 'SET_ROOT_NODE_ID', payload: rootNodeId });
-      dispatch({ type: 'SET_SELECTED_BLOCK', payload: null });
-    }, 500),
+  const debouncedRenderNodes = useMemo(
+    () =>
+      debounce((html: string) => {
+        const { nodes, rootNodeId } = htmlParser.parse(html || '');
+        dispatch({ type: 'SET_NODES', payload: nodes });
+        dispatch({ type: 'SET_ROOT_NODE_ID', payload: rootNodeId });
+        dispatch({ type: 'SET_SELECTED_BLOCK', payload: null });
+      }, 500),
     []
   );
 

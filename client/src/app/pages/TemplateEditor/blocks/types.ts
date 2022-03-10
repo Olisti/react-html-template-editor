@@ -8,24 +8,22 @@ export interface IBlockSettingsProps<T> {
 export interface IBlock<T = any> {
   item: FC<T>;
   settings: FC<T>;
-  defaultSettings: IBlockSettings;
+  defaultSettings: IBlockSettings<T>;
 }
 
-export interface IBlockSettings {
-  props: any;
+export interface IBlockSettings<T> {
+  props: {
+    id: string;
+    key: number | string;
+    tag?: string;
+    attribs?: { 'data-block'?: 'button' | 'container'; class?: string; styleObject?: any };
+    settings: T;
+  };
   children: any;
 }
+export type IBlockProps<S> = IBlockSettings<S>['props'];
 
 export type IBlockType = 'ContainerBlock' | 'ButtonBlock' | 'TextBlock' | 'ImageBlock';
-
-export interface IBlockProps<S> {
-  id: string;
-  tag: string;
-  key: string | number;
-  attribs: { styleObject: any; [key: string]: string };
-  settings: S;
-  children?: React.ReactNode;
-}
 
 export interface IDragBlockInfo {
   name: string;

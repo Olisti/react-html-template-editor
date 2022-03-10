@@ -2,7 +2,7 @@ import React, { VFC } from 'react';
 import { FormControl, FormLabel, Input, Stack } from '@chakra-ui/react';
 
 import { IButtonSettings } from './types';
-import { IBlockSettingsProps } from '../types';
+import { IBlockSettingsProps } from '..';
 
 const ButtonBlockSettings: VFC<IBlockSettingsProps<IButtonSettings>> = ({
   blockSettings,

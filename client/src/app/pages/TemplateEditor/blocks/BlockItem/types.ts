@@ -1,11 +1,13 @@
+import { CSSProperties, ReactNode } from 'react';
+
 import { IBlockProps } from '..';
 import { ISelectBlockProps } from '../../context';
 
 export interface IBlockItemProps<T> {
   blockName: string;
   blockProps: IBlockProps<T>;
-  styleSettings?: React.CSSProperties;
-  children: React.ReactNode;
+  styleSettings?: CSSProperties;
+  children: ReactNode;
 }
 
 export interface IBlockItemMemoProps<T = any> extends IBlockItemProps<T> {
@@ -14,3 +16,5 @@ export interface IBlockItemMemoProps<T = any> extends IBlockItemProps<T> {
   isSelected: boolean;
   selectBlock: (data: ISelectBlockProps) => void;
 }
+
+export type ITagName = 'div';

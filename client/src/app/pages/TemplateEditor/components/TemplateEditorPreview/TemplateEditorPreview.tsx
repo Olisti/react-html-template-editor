@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState, VFC } from 'react';
+import React, { useEffect, useMemo, useState, VFC } from 'react';
 import debounce from 'lodash.debounce';
 
 import { getTree } from './utils';
@@ -8,12 +8,12 @@ const TemplateEditorPreview: VFC = () => {
   const { nodes, rootNodeId, renderHtml } = useEditor();
   const [domTree, setDomTree] = useState<IEditorNodeEl | null>();
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const debouncedRenderHtml = useCallback(
-    debounce((domTree: IEditorNodeEl | null) => {
-      renderHtml(domTree);
-    }, 500),
-    []
+  const debouncedRenderHtml = useMemo(
+    () =>
+      debounce((domTree: IEditorNodeEl | null) => {
+        renderHtml(domTree);
+      }, 500),
+    [renderHtml]
   );
 
   useEffect(() => {

@@ -1,7 +1,7 @@
-import React, { memo, useRef, VFC } from 'react';
+import React, { FC, memo, useRef, MouseEvent } from 'react';
 import classNames from 'classnames';
 
-import { IBlockItemMemoProps, IBlockItemProps } from './types';
+import { IBlockItemMemoProps, IBlockItemProps, ITagName } from './types';
 import { useEditor } from '../../context';
 
 function BlockItem<T>(props: IBlockItemProps<T>) {
@@ -17,13 +17,13 @@ function BlockItem<T>(props: IBlockItemProps<T>) {
   );
 }
 
-const BlockItemMemo: VFC<IBlockItemMemoProps> = memo(
+const BlockItemMemo: FC<IBlockItemMemoProps> = memo(
   ({ blockName, isPreview, isSelected, selectBlock, blockProps, styleSettings, children }) => {
-    const blockRef = useRef<Element | null>(null);
-    const Tag = blockProps.tag || ('div' as any); // FIXME: any
-    const { styleObject, class: className, ...otherAttribs } = blockProps.attribs;
+    const blockRef = useRef<HTMLDivElement | null>(null);
+    const Tag = (blockProps.tag || 'div') as ITagName;
+    const { styleObject, class: className, ...restAttribs } = blockProps.attribs || {};
 
-    const onSelectBlock = (e: Event) => {
+    const onSelectBlock = (e: MouseEvent) => {
       if (!blockRef.current) return;
       e.stopPropagation();
       const rect = blockRef.current!.getBoundingClientRect();
@@ -38,7 +38,7 @@ const BlockItemMemo: VFC<IBlockItemMemoProps> = memo(
 
     return (
       <Tag
-        {...otherAttribs}
+        {...restAttribs}
         {...(classValue && { className: classValue })}
         style={{
           ...styleObject,
