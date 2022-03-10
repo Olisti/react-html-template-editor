@@ -28,7 +28,7 @@ const BlockItemMemo: FC<IBlockItemMemoProps> = memo(
       if (!blockRef.current) return;
       e.stopPropagation();
       const rect = blockRef.current!.getBoundingClientRect();
-      selectBlock({ id: blockProps.id || '', blockName, rect });
+      selectBlock({ id: blockProps.id, blockName, rect });
     };
 
     const classValue = classNames(

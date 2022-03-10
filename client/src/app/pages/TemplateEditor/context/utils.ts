@@ -41,9 +41,9 @@ export function addNodeOperation({
   const newNodeId = `id-${getRandomId()}`;
   const defaultSettings = EDITOR_BLOCKS[blockType].defaultSettings;
   const props: Partial<IBlockProps<any>> = {
+    ...defaultSettings.props,
     id: newNodeId,
     key: newNodeId,
-    ...defaultSettings.props,
   };
   const el = React.createElement(EDITOR_BLOCKS[blockType].item, props, defaultSettings.children);
   const newNode = {

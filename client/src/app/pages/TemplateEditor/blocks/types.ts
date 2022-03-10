@@ -13,8 +13,8 @@ export interface IBlock<T = any> {
 
 export interface IBlockSettings<T> {
   props: {
-    id?: string;
-    key?: number | string;
+    id: string;
+    key: number | string;
     tag?: string;
     attribs?: { 'data-block'?: 'button' | 'container'; class?: string; styleObject?: any };
     settings: T;
