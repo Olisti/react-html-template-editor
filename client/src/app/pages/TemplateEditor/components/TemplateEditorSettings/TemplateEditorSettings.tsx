@@ -1,10 +1,11 @@
-import { IUpdateSettingsProps } from './context/types';
-import React, { useCallback, useMemo } from 'react';
-import { blocks } from './blocks';
-import { useEditor } from './context/EditorProvider';
+import React, { useCallback, useMemo, VFC } from 'react';
 import { Box, Heading } from '@chakra-ui/react';
 
-export default function TemplateEditorSettings() {
+import { blocks } from '../../blocks';
+import { IUpdateSettingsProps } from '../../context/types';
+import { useEditor } from '../../context/EditorProvider';
+
+const TemplateEditorSettings: VFC = () => {
   const { nodes, selectedBlock, updateSettings } = useEditor();
   const selectedNode = useMemo(
     () => (selectedBlock?.id ? nodes[selectedBlock.id] : null),
@@ -47,4 +48,6 @@ export default function TemplateEditorSettings() {
     ),
     [selectedNode, Settings, updateSettingsById]
   );
-}
+};
+
+export default TemplateEditorSettings;

@@ -1,10 +1,11 @@
-import React, { SyntheticEvent, useCallback, useMemo } from 'react';
-import { Button, Input, Stack } from '@chakra-ui/react';
+import React, { SyntheticEvent, useCallback, useMemo, VFC } from 'react';
 import { Link as ReachLink } from 'react-router-dom';
-import { TEMPLATE_LIST_ROUTE } from '@/app/Router';
-import { useEditor } from './context/EditorProvider';
+import { Button, Input, Stack } from '@chakra-ui/react';
 
-export default function TemplateEditorTools() {
+import { TEMPLATE_LIST_ROUTE } from '@/app/Router';
+import { useEditor } from '../../context/EditorProvider';
+
+const TemplateEditorTools: VFC = () => {
   const { name, setName, onSave } = useEditor();
 
   const changeName = useCallback(
@@ -27,4 +28,6 @@ export default function TemplateEditorTools() {
     ),
     [name, changeName, onSave]
   );
-}
+};
+
+export default TemplateEditorTools;

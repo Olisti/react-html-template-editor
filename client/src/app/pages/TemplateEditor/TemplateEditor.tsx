@@ -7,13 +7,13 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import AppHeader from '@/app/components/AppHeader';
 import defaultTemplate from './defaultTemplate';
-import TemplateEditorBlocks from './TemplateEditorBlocks';
-import TemplateEditorBlockTools from './TemplateEditorBlockTools';
-import TemplateEditorSettings from './TemplateEditorSettings';
-import TemplateEditorPreview from './TemplateEditorPreview';
-import TemplateEditorFrame from './TemplateEditorFrame';
-import TemplateEditorCode from './TemplateEditorCode';
-import TemplateEditorTools from './TemplateEditorTools';
+import TemplateEditorBlocks from './components/TemplateEditorBlocks';
+import TemplateEditorBlockTools from './components/TemplateEditorBlockTools';
+import TemplateEditorSettings from './components/TemplateEditorSettings';
+import TemplateEditorPreview from './components/TemplateEditorPreview';
+import TemplateEditorFrame from './components/TemplateEditorFrame';
+import TemplateEditorCode from './components/TemplateEditorCode';
+import TemplateEditorTools from './components/TemplateEditorTools';
 
 export default function TemplateEditor() {
   const [template, setTemplate] = useState<ITemplate | null>(null);
