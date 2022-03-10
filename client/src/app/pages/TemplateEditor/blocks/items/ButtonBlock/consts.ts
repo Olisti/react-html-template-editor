@@ -1,4 +1,4 @@
-import { IBlockSettings } from '..';
+import { IBlockSettings } from '../..';
 import { IButtonSettings } from './types';
 
 export const DEFAULT_BUTTON_SETTINGS: IBlockSettings<IButtonSettings> = {

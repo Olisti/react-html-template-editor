@@ -1,5 +1,5 @@
 import { IContainerSettings } from './types';
-import { IBlockSettings } from '..';
+import { IBlockSettings } from '../..';
 
 export const DEFAULT_CONTAINER_SETTINGS: IBlockSettings<IContainerSettings> = {
   props: {

@@ -1,20 +1,18 @@
-import React, { Children, FC } from 'react';
+import React, { Children, FC, memo } from 'react';
 
 import { IContainerSettings } from './types';
-import BlockItem from '../BlockItem';
-import BlockDropArea from '../BlockDropArea';
-import { IBlockType, IBlockProps } from '..';
+import BlockItem from '../../components/BlockItem';
+import BlockDropArea from '../../components/BlockDropArea';
+import { IBlockType, IBlockProps, getBlockCSSProperties } from '../..';
 
 const ContainerBlock: FC<IBlockProps<IContainerSettings>> = (props) => {
   const accept: IBlockType[] = ['ButtonBlock'];
-  const {
-    settings: { padding, margin },
-  } = props;
+
   return (
     <BlockItem
       blockName="Container"
       blockProps={props}
-      styleSettings={{ ...(padding && { padding }), ...(margin && { margin }) }}
+      styleSettings={getBlockCSSProperties(props.settings)}
     >
       {Children.map(props.children, (child, index) => (
         <>
@@ -29,4 +27,4 @@ const ContainerBlock: FC<IBlockProps<IContainerSettings>> = (props) => {
   );
 };
 
-export default ContainerBlock;
+export default memo(ContainerBlock);

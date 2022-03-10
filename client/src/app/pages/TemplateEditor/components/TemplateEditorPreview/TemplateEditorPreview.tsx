@@ -13,7 +13,8 @@ const TemplateEditorPreview: VFC = () => {
       debounce((domTree: IEditorNodeEl | null) => {
         renderHtml(domTree);
       }, 500),
-    [renderHtml]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
   );
 
   useEffect(() => {

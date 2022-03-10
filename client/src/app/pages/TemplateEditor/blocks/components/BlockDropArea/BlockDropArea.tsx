@@ -2,7 +2,7 @@ import React, { useEffect, useState, VFC } from 'react';
 
 import { IBlockDropAreaProps } from './types';
 import BlockDropAreaItem from './BlockDropAreaItem';
-import { useEditor } from '../../context';
+import { useEditor } from '../../../context';
 
 const BlockDropArea: VFC<IBlockDropAreaProps> = (props) => {
   const { isPreview, addBlock } = useEditor();

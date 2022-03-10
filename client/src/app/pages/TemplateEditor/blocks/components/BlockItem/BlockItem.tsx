@@ -2,7 +2,7 @@ import React, { FC, memo, useRef, MouseEvent } from 'react';
 import classNames from 'classnames';
 
 import { IBlockItemMemoProps, IBlockItemProps, ITagName } from './types';
-import { useEditor } from '../../context';
+import { useEditor } from '../../../context';
 
 function BlockItem<T>(props: IBlockItemProps<T>) {
   const { isPreview, selectedBlock, selectBlock } = useEditor();
@@ -47,7 +47,7 @@ const BlockItemMemo: FC<IBlockItemMemoProps> = memo(
         ref={blockRef}
         onMouseDown={onSelectBlock}
       >
-        {isPreview && 'Preview!'}
+        {/* {isPreview && 'Preview!'} */}
         {children}
       </Tag>
     );

@@ -1,4 +1,6 @@
 import { FC } from 'react';
+import { IButtonSettings } from './items/ButtonBlock';
+import { IContainerSettings } from './items/ContainerBlock';
 
 export interface IBlockSettingsProps<T> {
   blockSettings: T;
@@ -29,3 +31,5 @@ export interface IDragBlockInfo {
   name: string;
   type: IBlockType;
 }
+
+export type IAnyBlockSettings = IButtonSettings | IContainerSettings;
