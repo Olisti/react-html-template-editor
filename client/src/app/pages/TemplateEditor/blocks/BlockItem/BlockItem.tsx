@@ -21,8 +21,7 @@ const BlockItemMemo: FC<IBlockItemMemoProps> = memo(
   ({ blockName, isPreview, isSelected, selectBlock, blockProps, styleSettings, children }) => {
     const blockRef = useRef<HTMLDivElement | null>(null);
     const Tag = (blockProps.tag || 'div') as ITagName;
-    const className = blockProps.attribs?.class;
-    const styleObject = blockProps.attribs?.styleObject;
+    const { styleObject, class: className, ...restAttribs } = blockProps.attribs || {};
 
     const onSelectBlock = (e: MouseEvent) => {
       if (!blockRef.current) return;
@@ -39,7 +38,7 @@ const BlockItemMemo: FC<IBlockItemMemoProps> = memo(
 
     return (
       <Tag
-        {...blockProps.attribs}
+        {...restAttribs}
         {...(classValue && { className: classValue })}
         style={{
           ...styleObject,

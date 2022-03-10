@@ -7,11 +7,14 @@ import { IBlockType, IBlockProps } from '..';
 
 const ContainerBlock: FC<IBlockProps<IContainerSettings>> = (props) => {
   const accept: IBlockType[] = ['ButtonBlock'];
+  const {
+    settings: { padding, margin },
+  } = props;
   return (
     <BlockItem
       blockName="Container"
       blockProps={props}
-      styleSettings={{ padding: props.settings.padding || 0, margin: props.settings.margin || 0 }}
+      styleSettings={{ ...(padding && { padding }), ...(margin && { margin }) }}
     >
       {Children.map(props.children, (child, index) => (
         <>

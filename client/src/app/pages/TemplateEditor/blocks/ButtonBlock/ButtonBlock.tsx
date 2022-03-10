@@ -5,11 +5,14 @@ import BlockItem from '../BlockItem';
 import { IBlockProps } from '..';
 
 const ButtonBlock: FC<IBlockProps<IButtonSettings>> = (props) => {
+  const {
+    settings: { padding, margin },
+  } = props;
   return (
     <BlockItem
       blockName="Button"
       blockProps={props}
-      styleSettings={{ padding: props.settings.padding || 0, margin: props.settings.margin || 0 }}
+      styleSettings={{ ...(padding && { padding }), ...(margin && { margin }) }}
     >
       {props.children}
     </BlockItem>

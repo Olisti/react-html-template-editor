@@ -30,7 +30,7 @@ export class HtmlToNodesParser {
       shouldProcessNode: (node) => node.type === 'text' && node.data.trim() === '',
       processNode: () => null,
     },
-    // container
+    // container block
     {
       shouldProcessNode: (node) => node.attribs?.['data-block'] === 'container',
       processNode: (node, children, index) => {
@@ -53,7 +53,7 @@ export class HtmlToNodesParser {
         return el;
       },
     },
-    // button
+    // button block
     {
       shouldProcessNode: (node) => node.attribs?.['data-block'] === 'button',
       processNode: (node, children, index) => {
