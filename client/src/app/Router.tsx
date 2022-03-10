@@ -1,8 +1,8 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import PageNotFound from './pages/404/PageNotFound';
-import TemplateEditor from './pages/template-editor/TemplateEditor';
-import TemplateList from './pages/template-list/TemplateList';
+import PageNotFound from './pages/PageNotFound';
+import TemplateEditor from './pages/TemplateEditor';
+import TemplateList from './pages/TemplateList';
 
 export const TEMPLATE_LIST_ROUTE = '/template/list';
 export const TEMPLATE_CREATE_ROUTE = '/template/editor';
