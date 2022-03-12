@@ -1,10 +1,10 @@
 export { default as EditorProvider } from './EditorProvider';
 export { useEditor } from './hooks';
 export type {
-  IAddBlockProps,
   ISelectedBlock,
+  IAddBlockProps,
   ISelectBlockProps,
-  IUpdateSettingsProps,
+  IUpdateBlockProps,
   IEditorNodeEl,
   IEditorNodes,
 } from './types';

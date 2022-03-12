@@ -5,7 +5,8 @@ import { Box, Flex, Grid, GridItem } from '@chakra-ui/react';
 
 import { ITemplate, IEditorData } from './types';
 import { DEFAULT_TEMPLATE } from './consts';
-import { EditorProvider } from './context';
+import { EditorProvider } from './contexts/EditorContext';
+import { TemplateProvider } from './contexts/TemplateContext';
 import AppHeader from '@/app/components/AppHeader';
 import TemplateEditorBlocks from './components/TemplateEditorBlocks';
 import TemplateEditorBlockTools from './components/TemplateEditorBlockTools';
@@ -31,35 +32,32 @@ export default function TemplateEditor() {
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <EditorProvider
-        template={template}
-        isPreview={true}
-        isDragging={isDragging}
-        saveHandler={saveHandler}
-      >
-        <AppHeader>
-          <TemplateEditorTools />
-        </AppHeader>
-        <Grid flex="1" templateColumns="8em auto 15em">
-          <GridItem bg="gray.50" borderRight="1px" borderColor="gray.200">
-            <TemplateEditorBlocks setDragging={setDragging} />
-          </GridItem>
-          <GridItem>
-            <Flex flexDirection="column" height="100%">
-              <Box position="relative" flex="1">
-                <TemplateEditorBlockTools />
-                <TemplateEditorFrame>
-                  <TemplateEditorPreview />
-                </TemplateEditorFrame>
-              </Box>
-              <TemplateEditorCode />
-            </Flex>
-          </GridItem>
-          <GridItem bg="gray.50" borderLeft="1px" borderColor="gray.200">
-            <TemplateEditorSettings />
-          </GridItem>
-        </Grid>
-      </EditorProvider>
+      <TemplateProvider template={template} saveHandler={saveHandler}>
+        <EditorProvider template={template} isPreview={true} isDragging={isDragging}>
+          <AppHeader>
+            <TemplateEditorTools />
+          </AppHeader>
+          <Grid flex="1" templateColumns="8em auto 15em">
+            <GridItem bg="gray.50" borderRight="1px" borderColor="gray.200">
+              <TemplateEditorBlocks setDragging={setDragging} />
+            </GridItem>
+            <GridItem>
+              <Flex flexDirection="column" height="100%">
+                <Box position="relative" flex="1">
+                  <TemplateEditorBlockTools />
+                  <TemplateEditorFrame>
+                    <TemplateEditorPreview />
+                  </TemplateEditorFrame>
+                </Box>
+                <TemplateEditorCode />
+              </Flex>
+            </GridItem>
+            <GridItem bg="gray.50" borderLeft="1px" borderColor="gray.200">
+              <TemplateEditorSettings />
+            </GridItem>
+          </Grid>
+        </EditorProvider>
+      </TemplateProvider>
     </DndProvider>
   );
 }

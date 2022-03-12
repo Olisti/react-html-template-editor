@@ -2,10 +2,12 @@ import React, { useEffect, useMemo, useState, VFC } from 'react';
 import debounce from 'lodash.debounce';
 
 import { getTree } from './utils';
-import { useEditor, IEditorNodeEl } from '../../context';
+import { useEditor, IEditorNodeEl } from '../../contexts/EditorContext';
+import { useTemplate } from '../../contexts/TemplateContext';
 
 const TemplateEditorPreview: VFC = () => {
-  const { nodes, rootNodeId, renderHtml } = useEditor();
+  const { nodes, rootNodeId } = useEditor();
+  const { renderHtml } = useTemplate();
   const [domTree, setDomTree] = useState<IEditorNodeEl | null>();
 
   const debouncedRenderHtml = useMemo(

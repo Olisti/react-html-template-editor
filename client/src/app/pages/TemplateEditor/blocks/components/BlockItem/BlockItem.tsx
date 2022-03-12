@@ -2,7 +2,7 @@ import React, { FC, memo, useRef, MouseEvent } from 'react';
 import classNames from 'classnames';
 
 import { IBlockItemMemoProps, IBlockItemProps, ITagName } from './types';
-import { useEditor } from '../../../context';
+import { useEditor } from '../../../contexts/EditorContext';
 
 function BlockItem<T>(props: IBlockItemProps<T>) {
   const { isPreview, selectedBlock, selectBlock } = useEditor();

@@ -1,5 +1,5 @@
 import { IBlockType } from '../..';
-import { IAddBlockProps } from '../../../context';
+import { IAddBlockProps } from '../../../contexts/EditorContext';
 
 export interface IBlockDropAreaProps extends Omit<IAddBlockProps, 'blockType'> {
   accept: IBlockType[];

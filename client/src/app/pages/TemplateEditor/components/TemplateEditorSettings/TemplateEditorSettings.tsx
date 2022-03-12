@@ -2,10 +2,12 @@ import React, { useCallback, useMemo, VFC } from 'react';
 import { Box, Heading } from '@chakra-ui/react';
 
 import { EDITOR_BLOCKS } from '../../blocks';
-import { useEditor, IUpdateSettingsProps } from '../../context';
+import { useEditor, IUpdateBlockProps } from '../../contexts/EditorContext';
+import { useTemplate } from '../../contexts/TemplateContext';
 
 const TemplateEditorSettings: VFC = () => {
-  const { nodes, selectedBlock, updateSettings } = useEditor();
+  const { nodes, selectedBlock, updateBlock } = useEditor();
+  const { setCodeChanged } = useTemplate();
   const selectedNode = useMemo(
     () => (selectedBlock?.id ? nodes[selectedBlock.id] : null),
     [nodes, selectedBlock]
@@ -17,12 +19,13 @@ const TemplateEditorSettings: VFC = () => {
   );
 
   const updateSettingsById = useCallback(
-    ({ key, value }: IUpdateSettingsProps) => {
+    ({ key, value }: IUpdateBlockProps) => {
       if (selectedNode?.props?.id) {
-        updateSettings({ id: selectedNode?.props?.id, key, value });
+        updateBlock({ id: selectedNode?.props?.id, key, value });
+        setCodeChanged();
       }
     },
-    [selectedNode, updateSettings]
+    [selectedNode, updateBlock, setCodeChanged]
   );
 
   return useMemo(

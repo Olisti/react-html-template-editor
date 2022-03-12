@@ -3,10 +3,10 @@ import { Link as ReachLink } from 'react-router-dom';
 import { Button, Input, Stack } from '@chakra-ui/react';
 
 import { TEMPLATE_LIST_ROUTE } from '@/app/Router';
-import { useEditor } from '../../context';
+import { useTemplate } from '../../contexts/TemplateContext';
 
 const TemplateEditorTools: VFC = () => {
-  const { name, setName, onSave } = useEditor();
+  const { name, setName, onSave } = useTemplate();
 
   const changeName = useCallback(
     (e: SyntheticEvent<HTMLInputElement>) => setName(e.currentTarget?.value),

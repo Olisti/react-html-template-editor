@@ -1,27 +1,23 @@
 import { JSXElementConstructor, ReactElement } from 'react';
 
-import { IEditorData, ITemplate } from '..';
-import { IBlockProps } from '../blocks';
+import { ITemplate } from '../..';
+import { IBlockProps } from '../../blocks';
 
 export interface IEditorProviderProps {
   template?: ITemplate | null;
   isPreview: boolean;
   isDragging?: boolean;
-  saveHandler?: (data: IEditorData) => void;
   children: React.ReactNode;
 }
 export interface IEditorContext extends IEditorState {
   isDragging: boolean;
-  setName: (name: string) => void;
-  setHtml: (html: string) => void;
-  renderHtml: (domTree: IEditorNodeEl | null) => void;
-  onSave: () => void;
+  updateNodes: (html: string) => void;
   addBlock: (data: IAddBlockProps) => void;
   selectBlock: (data: ISelectBlockProps) => void;
-  updateSettings: (props: IUpdateSettingsProps) => void;
+  updateBlock: (data: IUpdateBlockProps) => void;
 }
 
-export interface IEditorState extends IEditorData {
+export interface IEditorState {
   nodes: IEditorNodes;
   rootNodeId: string | null;
   isPreview: boolean;
@@ -30,8 +26,6 @@ export interface IEditorState extends IEditorData {
 
 export interface IEditorAction {
   type:
-    | 'SET_NAME'
-    | 'SET_HTML'
     | 'SET_NODES'
     | 'SET_ROOT_NODE_ID'
     | 'SET_IS_PREVIEW'
@@ -48,6 +42,18 @@ export interface ISelectBlockProps {
   rect: DOMRect;
 }
 
+export interface IAddBlockProps {
+  blockId: string;
+  blockType: string;
+  innerIndex: number;
+}
+
+export interface IUpdateBlockProps {
+  id: string;
+  key: string;
+  value: any;
+}
+
 export type IEditorNodeEl = ReactElement<any, string | JSXElementConstructor<any>>;
 
 export interface IEditorNodes {
@@ -59,16 +65,4 @@ interface IEditorNode {
   props: IBlockProps<any>;
   children: string[];
   el: IEditorNodeEl;
-}
-
-export interface IUpdateSettingsProps {
-  id: string;
-  key: string;
-  value: any;
-}
-
-export interface IAddBlockProps {
-  blockId: string;
-  blockType: string;
-  innerIndex: number;
 }

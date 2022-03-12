@@ -1,14 +1,10 @@
 import getRandomId from '@/services/randomId';
 import React from 'react';
-import { EDITOR_BLOCKS, IBlockProps } from '../blocks';
+import { EDITOR_BLOCKS, IBlockProps } from '../../blocks';
 import { IAddBlockProps, IEditorAction, IEditorNodes, IEditorState } from './types';
 
 export function reducer(state: IEditorState, action: IEditorAction): IEditorState {
   switch (action.type) {
-    case 'SET_NAME':
-      return { ...state, name: action.payload };
-    case 'SET_HTML':
-      return { ...state, html: action.payload };
     case 'SET_NODES':
       return { ...state, nodes: action.payload };
     case 'SET_ROOT_NODE_ID':

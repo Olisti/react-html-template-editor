@@ -1,7 +1,7 @@
 import { CSSProperties, ReactNode } from 'react';
 
 import { IBlockProps } from '../..';
-import { ISelectBlockProps } from '../../../context';
+import { ISelectBlockProps } from '../../../contexts/EditorContext';
 
 export interface IBlockItemProps<T> {
   blockName: string;

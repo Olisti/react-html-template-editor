@@ -1,13 +1,19 @@
 import React, { useMemo, useCallback, VFC, ChangeEventHandler } from 'react';
 import { Textarea } from '@chakra-ui/textarea';
 
-import { useEditor } from '../../context';
+import { useEditor } from '../../contexts/EditorContext';
+import { useTemplate } from '../../contexts/TemplateContext';
 
 const TemplateEditorCode: VFC = () => {
-  const { html, setHtml } = useEditor();
+  const { updateNodes } = useEditor();
+  const { html, setHtml } = useTemplate();
   const changeHtml: ChangeEventHandler<HTMLTextAreaElement> = useCallback(
-    (e) => setHtml(e.currentTarget?.value),
-    [setHtml]
+    (e) => {
+      const newHtml = e.currentTarget?.value;
+      setHtml(newHtml);
+      updateNodes(newHtml);
+    },
+    [setHtml, updateNodes]
   );
 
   return useMemo(
