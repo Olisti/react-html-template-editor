@@ -1,1 +1,1 @@
-export { default } from './TemplateEditorFrame';
+export { TemplateEditorFrame } from './TemplateEditorFrame.component';

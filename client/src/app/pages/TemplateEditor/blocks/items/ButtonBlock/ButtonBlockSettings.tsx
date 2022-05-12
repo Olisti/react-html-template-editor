@@ -1,10 +1,11 @@
 import React, { VFC } from 'react';
+
 import { Stack } from '@chakra-ui/react';
 
-import { IButtonSettings } from './types';
 import { IBlockSettingsProps } from '../..';
 import MarginControl from '../../components/MarginControl';
 import PaddingControl from '../../components/PaddingControl';
+import { IButtonSettings } from './types';
 
 const ButtonBlockSettings: VFC<IBlockSettingsProps<IButtonSettings>> = (props) => {
   return (

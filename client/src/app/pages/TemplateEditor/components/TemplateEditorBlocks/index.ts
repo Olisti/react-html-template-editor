@@ -1,1 +1,1 @@
-export { default } from './TemplateEditorBlocks';
+export { TemplateEditorBlocks } from './TemplateEditorBlocks.component';

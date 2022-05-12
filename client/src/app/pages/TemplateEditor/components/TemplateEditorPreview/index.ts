@@ -1,1 +1,1 @@
-export { default } from './TemplateEditorPreview';
+export { TemplateEditorPreview } from './TemplateEditorPreview.component';

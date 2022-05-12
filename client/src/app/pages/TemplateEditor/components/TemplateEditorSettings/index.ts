@@ -1,1 +1,1 @@
-export { default } from './TemplateEditorSettings';
+export { TemplateEditorSettings } from './TemplateEditorSettings.component';

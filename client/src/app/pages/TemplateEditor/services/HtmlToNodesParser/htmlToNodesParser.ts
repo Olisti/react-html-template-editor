@@ -1,11 +1,12 @@
-import React from 'react';
 import HtmlToReact, { Parser } from 'html-to-react';
+import React from 'react';
+
 import getRandomId from '@/services/randomId';
 
+import { ButtonBlock, ContainerBlock, IBlockProps } from '../../blocks';
+import { IEditorNodes } from '../../providers/EditorProvider';
 import { IParserNode, IPreprocessingInstruction, IProcessingInstruction } from './types';
 import { getStyleObjectFromString } from './utils';
-import { IEditorNodes } from '../../contexts/EditorContext';
-import { ContainerBlock, ButtonBlock, IBlockProps } from '../../blocks';
 
 const htmlToReactParser = new Parser();
 

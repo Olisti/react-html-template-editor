@@ -1,1 +1,1 @@
-export { default } from './TemplateList';
+export { TemplateList } from './TemplateList.component';

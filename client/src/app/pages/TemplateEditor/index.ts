@@ -1,2 +1,2 @@
-export { default } from './TemplateEditor';
-export type { ITemplate, IEditorData } from './types';
+export { TemplateEditor } from './TemplateEditor.component';
+export type { ITemplate, IEditorData } from './TemplateEditor.types';

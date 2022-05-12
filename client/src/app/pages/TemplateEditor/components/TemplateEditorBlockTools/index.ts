@@ -1,1 +1,1 @@
-export { default } from './TemplateEditorBlockTools';
+export { TemplateEditorBlockTools } from './TemplateEditorBlockTools.component';
